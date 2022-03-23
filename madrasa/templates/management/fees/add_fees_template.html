@@ -1,0 +1,28 @@
+{% extends 'management/management_template/base_template.html' %}
+ {% block page_title %} Add Fees {% endblock %} {% block main_content %}
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Add Fees</h3>
+          </div>
+          <form class="formlayout" action="" method="POST">
+            <div class="form-group" style="padding: 20px">
+              {% csrf_token %} {{ form.as_p }}
+
+              <input class="btn btn-success" type="submit" value="Save" />
+              <a href="{% url 'manage_fees'%}" class="btn btn-danger">CANCEL</a>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /.content -->
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends '../management/management_template/base_template.html' %}
+{% block page_title %} 
+Madina Masjid Weekend Madrasa-Application Form
+{% endblock  %} 
+{% block extra_head %}
+<style> 
+</style>
+{% endblock %}
+{% block main_content %}
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Application Form</h3>
+          </div>
+        
+            <div class="form-group" style= " padding: 20px;">
+                <div  class="cBGGJ textinfo" dir="auto">Assalamualaikum Warahmatullahi Wabarakathu,<br><br>Applications for Madina Masjid Weekend Madrasah are now open. Please take 5-10 minutes to fill out the application carefully and accurately, as this will help streamline the application process. Please bare with us as we deal with a great number of applications and we will get back to you as soon as possible. Please can you ensure you add <a href="mailto:weekendmadrasa@madinamasjiddocklands.org.uk">weekendmadrasa@madinamasjiddocklands.org.uk</a> and 07369259958 to your your contact list both on your email and mobile phone. Majority of our correspondence will be via these channels.<br><br><br>NOTICE:<br>By submitting this form, you consent to Madina Masjid Weekend Madrasa utilizing the given information. Rest assured, we take data protection very seriously. The information provided will be used for administration purposes only and will not be passed onto any third parties unless required by the Law.  <br><br>JazakAllahu Khairan,<br>Management Team</div>
+               <hr/>
+               <div  class="meSK8 G4EHhc textinfo" role="heading" aria-level="2"><strong>Rules and Regulations</strong> </div>
+                
+                <div class="spb5Rd G4EHhc textinfo"><br/> Students are representatives of Madina Masjid Weekend Madrasa and therefore are expected to set a high standard of behaviour both inside and outside of the premises.
+                     Honesty and respect are highly valued and encouraged by us. Students, teachers, and parents should work together to encourage educational excellence and character building.
+                     <br><br>1) We require all payments to be paid on time for the smooth running of the madrasa. Prompt payment of fees will enable the institute to focus on other aspects to improve the learning and experience of children at Madina Weekend Madrasa. 
+                     <br><br>2) Attendance, Punctuality and Regular Practice at home will enable your child to achieve maximum benefit from Madina Weekend Madrasa, please keep these 3 points in mind during the course of the year. Parents must pick up and drop off their children on time. 
+                     If they will be late or absent for any reason, then please message the management team.
+                     <br><br>3) Madina Weekend Madrasa uniform will conform to the sunnah of our Prophet Muhammad SAW. Our boys shall come in Jubbahs/thobes and our girls shall come in abayas with hair fully covered. Uniforms help students to prepare for studying and presents a sense of belonging as well as an identity for the madrasa.
+                     <br><br>4) Parents should encourage their children to read and make effort at home, this is mandatory if you want your child to progress and this should be recorded clearly in their respective books. (If you have any concerns regarding your child’s progress, please contact the management team directly via email and we will be happy to assist Insha-Allah.
+                     <br><br>5) No student is permitted to leave the boundaries of the mosque at any time. Should there be an emergency or a reason to leave, then an authorised letter from parents will be required.
+                     <br><br>6) We have a strict policy for mobile phones, students should NOT be using mobile phones during lesson times, if found then this shall be confiscated and returned either end of day or end of term. We allow students to use their phones if necessary during break times.
+                     <br><br>7) Respecting one another is a fundamental action taught to us by our Prophet (PBUH). In Madina Weekend Madrasa we require each and every individual to have good manners and respect to maintain the peaceful environment of the masjid and Madina Weekend Madrasa. We will not tolerate any sort of disrespect, bullying, swearing or hurting one another in any form of way.
+                     <br><br>8) Please update Madina Weekend Madrasa of any changes to a child's personal information including the child's medical health. Should there be any emergencies please contact the management team.
+                      <br><br><br><br>Madina Weekend Madrasa policies can be requested from the management team.</div>
+                     
+                <hr/>
+                <br><br>
+                <form class="formlayout" action="" method="POST">
+                {% csrf_token %}
+            
+            {{ form.as_p }}
+          
+            <input class="btn btn-success" type="submit" value="Save" />
+            <a href="{% url 'home' %}" class="btn btn-danger">CANCEL</a>
+        </div>
+        </form>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /.content -->
+{% endblock  %}

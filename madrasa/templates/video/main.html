@@ -1,0 +1,28 @@
+<!-- '''
+Code taken from a Youtube tutorial
+Ivy, D., 2022. GitHub - divanov11/mychat:
+A video group video calling application using a Django backend with the Agora Web SDK. [online] GitHub. 
+Available at: <https://github.com/divanov11/mychat> [Accessed 21 March 2022].
+https://www.youtube.com/watch?v=Oxnz8Us1QAQ
+''' -->
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>MyChat</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <script src="{% static 'js/main.js' %}"></script>
+</head>
+<body>
+    {% block content %}
+
+    {% endblock content %}
+</body>
+<!-- <script type="text/javascript" src="{% static 'assets/AgoraRTC_N-4.8.0.js' %}"></script> -->
+
+
+</html>

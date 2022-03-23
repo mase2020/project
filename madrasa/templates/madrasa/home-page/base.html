@@ -1,0 +1,186 @@
+{% load static %} {% load auth_extras %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <!--- basic page needs
+
+    <!-- link to bootstrap 4.0 -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <!-- link to font awesome cdn
+        https://fontawesome.com/ -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+      integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/banner.css' %}" -->
+
+    <!--================================================= -->
+    <meta charset="utf-8" />
+    <title>Madina Masjid Weekend Madrasa</title>
+    <meta
+      name="description"
+      content="Make your child an ambassador of Islam by enrolling your child in our childrens weekend maktab. We cater for different levels of a child's fundamental Islamic knowledge. "
+    />
+    <meta name="author" content="Muhammad Masum Miah" />
+    <meta property="og:title" content="Weekend Madrasa" />
+    <meta property="og:url" content="https://www.madinamadrasa.co.uk/" />
+    <meta
+      property="og:description"
+      content="Make your child an ambassador of Islam by enrolling your child in our childrens weekend maktab. We cater for different levels of a child's fundamental Islamic knowledge.  "
+    />
+    <meta property="og:image" content="{%  static 'images/logo1.png' %}" />
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" href="{%  static 'css/vendor.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/compressed/styles.min.css' %}" />
+ 
+    <link rel="stylesheet" href="{% static 'css/compressed/vendor.min.css' %}" />
+
+    <!-- script
+    ================================================== -->
+    <script src="{%  static 'js/modernizr.js' %}"></script>
+    <script defer src="{%  static 'js/fontawesome/all.min.js' %}"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{%  static 'apple-touch-icon.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{%  static 'favicon-32x32.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{%  static 'favicon-16x16.png' %}"
+    />
+
+    <style>
+      .s-header__logo {
+        --logo-width: 106px;
+        --logo-height: auto;
+        height: var(--header-height);
+        width: var(--logo-width);
+
+        position: relative;
+      }
+    </style>
+
+    {% block head %} {% endblock%}
+  </head>
+
+  <body id="top">
+    <!-- preloader
+    ================================================== -->
+
+    <!-- header
+    ================================================== -->
+
+    <header class="s-header">
+      <div class="row">
+        <div class="s-header__logo">
+          <a href="{% url 'home' %}">
+            <!-- to edit -->
+            <img src="{%  static 'images/logo1.png' %}" alt="Homepage" />
+          </a>
+        </div>
+
+        <nav class="s-header__nav">
+          <ul>
+            <li class="current">
+              <a class="smoothscroll" href="#home">HOME</a>
+            </li>
+            <li><a class="smoothscroll" href="#syllabus">SYLLABUS</a></li>
+            <li><a class="smoothscroll" href="#courses">COURSES</a></li>
+            <li><a class="smoothscroll" href="#about">ABOUT US</a></li>
+            <!-- <li><a class="smoothscroll" href="#blog">ARTICLES</a></li> -->
+            <li><a class="smoothscroll" href="#teachers">TEACHERS</a></li>
+            <!-- <li><a class="smoothscroll" href="#jobs">JOBS</a></li> -->
+            <li><a class="smoothscroll" href="#contact">CONTACT</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href=" {% url 'products'%}">SHOP</a>
+            </li>
+            {% if request.user|has_group:"admin" %}
+            <li class="nav-item">
+              <a class="nav-link" href=" {% url 'admin_home'%}">ADMIN</a>
+            </li>
+          
+            {% elif request.user|has_group:"student" or request.user|has_group:"staff" %}
+            <li class="nav-item">
+              <a class="nav-link" href=" {% url 'admin_home'%}">DASHBOARD</a>
+            </li>
+            {% endif %} {% if user.is_authenticated %}
+
+            <li class="nav-item">
+              <a class="nav-link" href=" {% url 'logout'%}">LOGOUT</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href=" {% url 'signup'%}">SIGNUP</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href=" {% url 'login'%}">LOGIN</a>
+            </li>
+            {% endif%}
+          </ul>
+        </nav>
+
+        <a class="s-header__menu-toggle" href="#0" title="Menu">
+          <span class="s-header__menu-icon"></span>
+        </a>
+      </div>
+      <!-- end row -->
+    </header>
+    <!-- end s-header -->
+    <!-- <div class="banner">
+        <div class="banner__content">
+            <div class="banner__text">
+               
+                <strong>DISCOUNT ENDS ON WEDNESDAY.</strong>
+                
+                <button class="banner__close" type="button"><span class="material-icons-outlined">
+                    close
+                    </span></button>
+            </div>
+        </div>
+    </div>
+   -->
+    {% block content %} {% endblock %}
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="{%  static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <!-- <script>
+        document.querySelector(".banner__close").addEventListener("click", function () {
+    this.closest(".banner").style.display = "none";
+  });
+  
+    </script> -->
+  </body>
+</html>

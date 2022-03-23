@@ -1,0 +1,91 @@
+{% extends 'management/management_template/base_template.html' %} 
+{% block page_title %} Manage Student 
+{% endblock  %} 
+{% block main_content %}
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Student Details</h3>
+
+            <div class="card-tools">
+              <div class="input-group input-group-sm" style="width: 150px">
+                <input
+                  type="text"
+                  name="table_search"
+                  class="form-control float-right"
+                  placeholder="Search"
+                />
+
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+    <th scope="col">Class</th>
+    <th scope="col">First Name</th>
+    <th scope="col">Last Name</th>
+    <th scope="col">Date of Birth</th>
+    <th scope="col">Address</th>
+    <th scope="col">Postcode</th>
+    <th scope="col">Photography</th>
+
+<!--     
+    <th scope="col">Parent</th> -->
+    <th scope="col">Phone</th>
+  
+    <!-- <th scope="col">Phone</th> -->
+    <th scope="col">Email</th>
+    
+
+    <th scope="col"> </th>
+    <th scope="col"> </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for s in students_list %}
+                <tr>
+                  <th scope="row">{{forloop.counter}}</td>
+                    <td>{{ s.which_class }}</td>
+                    <td>{{ s.first_name }}</td>
+                    <td>{{ s.last_name }}</td>
+                    <td>{{ s.DOB }}</td>
+                    <td>{{ s.address }}</td>
+                    <td>{{ s.postcode }}</td>
+                    <td>{{ s.photography }}</td>
+
+                    
+                    <td>{{ s.phone }}</td>
+                   
+                    <td>{{ s.email }}</td>
+                    
+                    
+              
+                    <td><a href="{% url 'edit_student' s.id %}"><button class="btn btn-outline-dark btn-lg ">Edit</button></a></td>
+                    <td><a href="{% url 'studentdelete' s.id %}"><button class="btn btn-outline-dark btn-lg  ">Delete</button></a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /.content -->
+{% endblock main_content %}

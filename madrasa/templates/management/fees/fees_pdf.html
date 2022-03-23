@@ -1,0 +1,228 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Invoice #WM000{{order.slug}}</title>
+
+		<style>
+			.invoice-box {
+				max-width: 800px;
+				margin: auto;
+				padding: 30px;
+				border: 1px solid #eee;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+				font-size: 16px;
+				line-height: 24px;
+				font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+				color: #555;
+			}
+
+			.invoice-box table {
+				width: 100%;
+				line-height: inherit;
+				text-align: left;
+			}
+
+			.invoice-box table td {
+				padding: 5px;
+				vertical-align: top;
+			}
+
+			.invoice-box table tr td:nth-child(2) {
+				text-align: right;
+			}
+
+			.invoice-box table tr.top table td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.top table td.title {
+				font-size: 45px;
+				line-height: 45px;
+				color: #333;
+			}
+
+			.invoice-box table tr.information table td {
+				padding-bottom: 40px;
+			}
+
+			.invoice-box table tr.heading td {
+				background: #eee;
+				border-bottom: 1px solid #ddd;
+				font-weight: bold;
+			}
+
+			.invoice-box table tr.details td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.item td {
+				border-bottom: 1px solid #eee;
+			}
+
+			.invoice-box table tr.item.last td {
+				border-bottom: none;
+			}
+
+			.invoice-box table tr.total td:nth-child(2) {
+				border-top: 2px solid #eee;
+				font-weight: bold;
+			}
+
+			@media only screen and (max-width: 600px) {
+				.invoice-box table tr.top table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+
+				.invoice-box table tr.information table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+			}
+
+			/** RTL **/
+			.invoice-box.rtl {
+				direction: rtl;
+				font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+			}
+
+			.invoice-box.rtl table {
+				text-align: right;
+			}
+
+			.invoice-box.rtl table tr td:nth-child(2) {
+				text-align: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="invoice-box">
+			<table cellpadding="0" cellspacing="0">
+				<tr class="top">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td class="title">
+                                    <!-- <img style="width: 100%; max-width: 300px;"  src="https://github.com/mase2020/images/blob/e12af152870da1031dd341014b5c968ecb95de3b/logo1.png" alt="IMG-LOGO">-->
+                                         Madina Masjid Weekend Madrasa.  
+								</td>
+
+								<td>
+                                    <b>Invoice #WM000{{order.id}}</b><br>
+                                    <br>
+                                    <b>Order ID:</b> {{order.id}}<br>
+                                    <b>Payment Date:</b> {{order.date}}<br>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="information">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td>
+                                    From
+                                    <address>
+                                      <strong>Madina Masjid Weekend Madrasa</strong><br>
+                                      248-250 Westferry Road<br>
+                                      London, E14 3AG<br>
+                                      Phone: 07369259958<br>
+                                      Email: weekendmadrasa@<br>
+                                      madinamasjiddocklands.org.uk
+                                    </address>
+								</td>
+
+								<td>
+                                    To
+                                    <address>
+                                        
+                                      <strong>{{order.student_id.first_name}} {{order.student_id.last_name}}</strong><br>
+                                   
+                                      Email: {{order.student_id.email}}
+                                    </address>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="heading">
+					<td>Payment Method</td>
+
+					<td>Amount</td>
+
+					
+
+				</tr>
+
+				<tr class="details">
+					<td>Cash</td>
+
+					<td>£{{order.amount|floatformat:2}}</td>
+				</tr>
+
+				<tr class="heading">
+					<td>Item</td>
+
+					<td>Price</td>
+
+				</tr>
+              
+				<tr class="item">
+					<td> Year {{order.year}}: Term  {{ order.term }}  fees</td>
+
+					<td>£ {{ order.amount|floatformat:2 }}</td>
+				</tr>
+           
+
+               
+				<tr class="total">
+					<td></td>
+
+					<td>Total: £{{order.amount|floatformat:2}}</td>
+				</tr>
+                <tr class="total">
+					<td>Remaining fees for the year</td>
+                    {% if order.term == '1'%}
+					<td>£ 360.00</td>
+                    {% elif order.term == '2'%}
+                    <td>£ 180.00</td>
+                    {% else %}
+                    <td>You completed all payments for the year</td>
+
+                    {% endif %}
+				</tr>
+			</table>
+
+            <p style="text-align: center;"><br><br>Jazakallahu khairan for your payment <br>
+            Please retain this receipt as proof of payment
+        </p>
+		</div>
+	</body>
+</html>
+
+
+
+<!-- MIT License
+
+Copyright (c) 2021 Sparksuite
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+https://github.com/sparksuite/simple-html-invoice-template -->

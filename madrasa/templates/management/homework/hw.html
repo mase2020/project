@@ -1,0 +1,194 @@
+
+{% extends 'management/management_template/base_template.html' %}
+{% block page_title %} 
+Check Homework
+{% endblock  %} 
+{% block main_content %}
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Check Homework</h3>
+          </div>
+         
+            <div class="form-group" style="padding: 20px;">
+           
+                <label>Class</label>
+                <select class="form-control" name=" class" id="classes">
+                
+                    {% for classes in classes %}
+                    <option value ="{{classes.id}}">{{classes.title}}</option>
+                    {% endfor %}
+    
+                </select>
+
+            <!-- <label>Date</label>
+            <select class="form-control" type = 'date'name=" date" id="date">
+                {% for att in attendance %}
+                <option value ="{{att.id}}">{{att.date}}</option>
+                {% endfor %}
+
+            </select> -->
+
+            <div class='form-group'><label>Homework Date : </label><input type='date' name='date' 
+                id='date' class='form-control'></div><div class='form-group'><div class='row'>
+              
+            
+          
+            
+          
+        
+       
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary btn-block" id="fetch_student">Fetch Homework</button>
+          </div>
+          <div id="student_data" class="card-footer">
+
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+{% endblock %}
+
+{% block custom_js %}
+<script>
+
+let todaysdate = new Date();
+                    let day = todaysdate.getDate();
+                    let month = todaysdate.getMonth() + 1;
+                    let year = todaysdate.getFullYear();
+                    if (month < 10) month = "0" + month;
+                    if (day < 10) day = "0" + day;
+                    
+                    let today = year + "-" + month + "-" + day;
+                    
+                    document.getElementById("date").value = today;
+
+
+    function getMonday(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
+
+
+function convert(str) {
+  var date = new Date(str),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+  return [date.getFullYear(), mnth, day].join("-");
+} 
+    $(document).ready(function(){
+        $("#fetch_student").click(function(){
+            var classes=$("#classes").val()
+            var dates =$("#date").val()
+            dates = convert(getMonday(dates))
+           
+
+            $.ajax({
+                url:"{% url 'get_homework' %}",
+                type:'POST',
+                data:{class:classes, date:dates},
+            })
+            .done(function(response){
+                var json_data=JSON.parse(response);
+                console.log(json_data)
+                if(json_data.length > 0){
+                    
+                
+                var div_data = '<div class="form-group"><div class="row"><div class="card-body table-responsive p-0"><table class="table table-hover text-nowrap">                <thead><tr><th scope="col">#</th><th scope="col">Subject</th ><th scope="col">Content</th><th scope="col">Audio</th><th scope="col" > </th><th scope="col" > </th ></tr></thead>'
+                let i = 1
+                for(key in json_data)
+                {
+                    if (json_data[key]["audio"] == "Not Applicable"){
+                        div_data+='<tbody><tr><td>' + i +'</td><td class="form-check-label">'+json_data[key]["subject"]+'</td><td class="form-check-label">'+json_data[key]["content"]+'</td><td class="form-check-label">'+json_data[key]["audio"]+'</td></tr>'
+                    }
+                    else{
+                    div_data+='<tbody><tr><td>' + i +'</td><td class="form-check-label">'+json_data[key]["subject"]+'</td><td class="form-check-label">'+json_data[key]["content"]+'</td><td class="form-check-label"><audio controls><source src="/media/'+json_data[key]["audio"]+'" type="audio/mp3"><source src="" type="audio/mpeg">Your browser does not support the audio element.</audio></td></tr>'}
+                    i++
+                }
+
+                div_data += '</tbody></table> </div></div>'
+
+            
+
+
+
+                div_data+="</div></div>";
+             
+
+                $("#student_data").html(div_data);
+            }
+            else{
+                alert("no data found")
+            }
+              
+
+            })
+            .fail(function(){
+                alert("Error in Fetching Student")
+            })
+        })
+    })
+
+    $(document).on("click","#save_attendance",function(){
+
+$(this).attr("disabled","disabled")
+$(this).text("Saving Attendance Data...")
+var student_data=$("input[name='student_data[]']").map(function(){
+        if($(this).is(":checked")){
+            return {"id":$(this).val(),"status":1};
+        }
+        else{
+            return {"id":$(this).val(),"status":0};
+        }
+ }).get()
+
+var classes=$("#classes").val();
+var dates =$("#date").val()
+
+
+console.log(student_data)
+student_data=JSON.stringify(student_data)
+
+$.ajax({
+        url:'{% url "update_attendance_data" %}',
+        type:'POST',
+        data:{student_ids:student_data,date:dates, classes: classes},
+    })
+    .done(function(response){
+
+        if(response=="OK"){
+            alert("Attendance Save")
+        }
+        else{
+            alert("Error in Saving Data")
+        }
+     
+    })
+    .fail(function(){
+        alert("Error in Saving Student")
+    })
+
+
+
+})
+                    
+
+
+            
+        
+    
+</script>
+{% endblock custom_js %}

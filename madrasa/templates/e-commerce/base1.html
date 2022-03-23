@@ -1,0 +1,65 @@
+{% extends "e-commerce/base.html" %}
+{% load static %}
+
+
+
+  <title>{% block head_title %}{% endblock %}</title>
+  {% block extra_head %}
+  {% endblock %}
+
+  {% block extra_head1 %}
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link href="{% static 'e-commerce/e-commerce/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'e-commerce/e-commerce/css/mdb.min.css' %}" rel="stylesheet">
+  <link href="{% static 'e-commerce/e-commerce/css/style.min.css' %}" rel="stylesheet">
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      
+    }
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+       
+      }
+    }
+
+  </style>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+    {% block content1 %}
+    {% endblock content1 %}
+
+    {% block extra_body %}
+    {% endblock extra_body%}
+
+ 
+    {% include "e-commerce/scripts.html" %}
+
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
+
+
+{% endblock %}
