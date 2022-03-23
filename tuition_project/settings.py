@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 
-import environ 
+from os import environ 
 env = environ.Env(
     DEBUG =(bool, False)
 )
