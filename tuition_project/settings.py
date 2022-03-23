@@ -14,9 +14,9 @@ from pathlib import Path
 import os
 
 from os import environ 
-env = environ.Env(
-    DEBUG =(bool, False)
-)
+# env = environ.Env(
+#     DEBUG =(bool, False)
+# )
 
 
 
@@ -32,7 +32,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = "django-insecure-h$sisbvm98^!8h@!uon=d&shi"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = False
 ALLOWED_HOSTS = ['https://madrasaproject.herokuapp.com/', 'madinamadrasa.co.uk','www.madinamadrasa.co.uk', '127.0.0.1', 'localhost']
 
 MEDIA_URL= "/media/"
@@ -178,6 +178,6 @@ LOGIN_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.ionos.co.uk'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD =env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD =os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True

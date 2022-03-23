@@ -1370,13 +1370,11 @@ def lobby(request):
 def room(request):
     return render(request, 'video/room.html')
 
-import environ 
-env = environ.Env(
-    DEBUG =(bool, False)
-)
+import os 
+
 def getToken(request):
-    appId = env("APP_ID")
-    appCertificate = env("APP_CERT")
+    appId = os.environ.get("APP_ID")
+    appCertificate = os.environ.get("APP_CERT")
     channelName = request.GET.get('channel')
     uid = random.randint(1, 230)
     expirationTimeInSeconds = 3600
