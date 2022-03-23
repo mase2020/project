@@ -1370,8 +1370,7 @@ def lobby(request):
 def room(request):
     return render(request, 'video/room.html')
 
-import os 
-
+import os
 def getToken(request):
     appId = os.environ.get("APP_ID")
     appCertificate = os.environ.get("APP_CERT")
