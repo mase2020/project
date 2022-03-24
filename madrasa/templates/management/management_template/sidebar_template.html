@@ -321,34 +321,66 @@
               </li>
 
       
-              <li class="nav-item">
-                {% url 'lobby' as lobby %}
-                <a
-                  href="{% url 'lobby' %}"
-                  class="nav-link {% if request.path == lobby %} active {% endif %} {% if request.path == lobby %} active {% endif %}"
-                >
-                  <i class="nav-icon fas fa-th"></i>
-                  <p>Online Class<span class="right badge badge-danger">New</span></p>
-                </a>
-              </li>
-        <li class="nav-item">
-          <a href="{% url 'add_class' %}" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-              View Attendance
-              <span class="right badge badge-danger">New</span>
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{% url 'add_staff' %}" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-              Student Feedback
-              <span class="right badge badge-danger">New</span>
-            </p>
-          </a>
-        </li>
+     
+<li class="nav-item has-treeview">
+  <a href="#" class="nav-link">
+  <i class="nav-icon fas fa-th"></i>
+  <p>
+  Shop
+  <i class="fas fa-angle-left right"></i>
+  <span class="badge badge-info right">3</span>
+  </p>
+  </a>
+  
+  
+  <ul class="nav nav-treeview" style="display: none;">
+  
+  
+    <li class="nav-item" >
+      {% url 'add_product' as add_product %}
+      <a
+        href="{% url 'add_product' %}"
+        class="nav-link {% if request.path == add_product %} active {% endif %}"
+      >
+      <i class="far fa-circle nav-icon"></i>
+        <p>Add Product</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      {% url 'manage_products' as manage_products %}
+      <a
+        href="{% url 'manage_products' %}"
+        class="nav-link {% if request.path == manage_productsk %} active {% endif %}"
+      >
+      <i class="far fa-circle nav-icon"></i>
+        <p>Manage Products</p>
+      </a>
+    </li>
+    
+    <li class="nav-item" >
+      {% url 'homework' as homework %}
+      <a
+        href="{% url 'homework' %}"
+        class="nav-link {% if request.path == homework %} active {% endif %} {% if request.path == homework %} active {% endif %}"
+      >
+      <i class="far fa-circle nav-icon"></i>
+        <p>View Homework</p>
+      </a>
+    </li>
+    <li class="nav-item" >
+      {% url 'add_audio' as add_audio %}
+      <a
+        href="{% url 'add_audio' %}"
+        class="nav-link {% if request.path == add_audio %} active {% endif %} {% if request.path == add_audio %} active {% endif %}"
+      >
+      <i class="far fa-circle nav-icon"></i>
+        <p>Add Audio</p>
+      </a>
+    </li>
+  
+    
+    </ul>
+    </li>
 
         {% elif request.user|has_group:"student" %}
 

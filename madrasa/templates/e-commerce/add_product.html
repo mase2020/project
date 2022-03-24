@@ -1,6 +1,6 @@
 {% extends '../management/management_template/base_template.html' %}
 {% block page_title %} 
-Add Class
+Add Product
 {% endblock  %} 
 {% block main_content %}
 <!-- Main content -->
@@ -11,7 +11,7 @@ Add Class
         <!-- general form elements -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Add Class</h3>
+            <h3 class="card-title">Add Product</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -24,7 +24,7 @@ Add Class
 
           
             <input class="btn btn-success" type="submit" value="Save" style="margin-top: 20px;" />
-            <a href="{% url 'products'%}" class="btn btn-danger" style="margin-top: 20px;">CANCEL</a>
+            <a href="{% url 'manage_products'%}" class="btn btn-danger" style="margin-top: 20px;">CANCEL</a>
         </div>
         </form>
         </div>

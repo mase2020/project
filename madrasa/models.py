@@ -335,18 +335,12 @@ class Order(models.Model):
             total += p.get_total()
         return total
     def get_tax_total(self):
-        total =0
-        for p in self.products.all():
-            total += p.get_total()
-            total *= 1.20
-        return total
+    
+        return self.get_total() * 1.2
 
     def get_tax(self):
-        total =0
-        for p in self.products.all():
-            total += p.get_total()
-            total *= 0.20
-        return total
+         
+        return self.get_total() * 0.2
 
     class Meta:
         ordering = ["slug"]

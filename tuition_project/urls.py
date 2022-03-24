@@ -137,6 +137,13 @@ urlpatterns = [
     path('create_member/', views.createMember),
     path('get_member/', views.getMember),
     path('delete_member/', views.deleteMember),
+
+
+
+    path('send_email_customer',views.customer_email, name= 'send_email_customer'),
+    path('send_email_student',views.student_email, name= 'send_email_student'),
+    path('message', views.message, name='message'),
+    path('contact_us', views.contact_us, name='contact_us'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

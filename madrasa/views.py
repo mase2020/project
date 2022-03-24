@@ -1,4 +1,5 @@
 
+from http.client import HTTPResponse
 from django.shortcuts import render,get_object_or_404,redirect
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -1433,3 +1434,51 @@ https://www.youtube.com/watch?v=Oxnz8Us1QAQ
 
 def admin_home(request):
     return render(request,"management/management_template/home_content.html")
+
+
+
+def message(req):
+
+    return render(req,'madrasa/home-page/message.html' )
+
+def student_email(req):
+    if req.method == 'POST':
+        message = req.POST['message']
+        email_ad = req.POST['email_ad']
+        subject = req.POST['name1']
+        to_emails = ['weekendmadrasa@madinamasjiddocklands.org.uk']
+        email = EmailMessage('Name: ' +subject + '  From: '+ email_ad , body='From: '+ email_ad + '\n \n' + message, from_email=settings.EMAIL_HOST_USER, to=to_emails)
+    
+        email.encoding = 'us-ascii'
+        email.send()
+        messages.info(req, "Thank you for your message, We aim to respond promptly.")
+        return redirect('message')
+    else:
+        messages.info(req, "Error sending message.")
+        return redirect('message')
+
+      
+
+    
+
+def contact_us(req):
+    return render(req, 'e-commerce/contact.html')
+
+
+def customer_email(req):
+    if req.method == 'POST':
+        message = req.POST['message']
+        email_ad = req.POST['email_ad']
+        subject = req.POST['name1']
+        to_emails = ['weekendmadrasa@madinamasjiddocklands.org.uk']
+        email = EmailMessage('Name: ' +subject + '  From: '+ email_ad , body='From: '+ email_ad + '\n \n' + message, from_email=settings.EMAIL_HOST_USER, to=to_emails)
+    
+        email.encoding = 'us-ascii'
+        email.send()
+        messages.info(req, "Thank you for your message, We aim to respond promptly.")
+        return redirect('contact_us')
+    else:
+        messages.info(req, "Error sending message.")
+        return redirect('contact_us')
+
+      
