@@ -417,7 +417,7 @@ class RegistrationCreateForm(forms.ModelForm):
                                   error_messages={'required': "Please check the box"})
 
     photography = forms.BooleanField(label='', label_suffix=" : ",
-                                  required=True, disabled=False,
+                                  required=False, disabled=False,
                                   widget=forms.widgets.CheckboxInput(attrs={'class': 'checkbox-inline'}),
                                   help_text='<span class="my-class textinfo"> We would like to upload digital photos/audio recordings/videos of our students on our website www.madinamadrasa.co.uk <br>and other mediums to celebrate their achievements and publicity purposes. Do you give your consent for this?</span>',
                                   error_messages={'required': "Please check the box"})

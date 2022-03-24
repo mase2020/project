@@ -127,7 +127,7 @@ class Students(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     DOB = models.DateField("Date of Birth")
-    photography =models.BooleanField(default=False)
+    photography =models.BooleanField(blank=True, null=True,default=False)
     previous_madrasa = models.CharField('Previous Madrasa', max_length=255,  blank=True,
     null=True,)
     level_of_study = models.CharField(max_length = 20,choices=level_categories,   blank=True,
@@ -144,7 +144,7 @@ class Students(models.Model):
 
     phone = models.CharField('Phone Number',max_length=15)
     # class_id = models.ForeignKey(Classes,  on_delete=models.DO_NOTHING)
-    created = models.DateTimeField(auto_now_add=True)
+    
  
 
 
@@ -219,7 +219,7 @@ class Registration(models.Model):
     #school year
     previous_madrasa = models.CharField('Previous Madrasa', max_length=255)
     level_of_study = models.CharField(max_length = 20,choices=level_categories)
-    photography =models.BooleanField(default=False)
+    photography =models.BooleanField(blank=True, null=True,default=False)
 
     # special_needs = models.CharField('Special needs', max_length=255, default='NO')
     address = models.CharField(max_length=255)
@@ -247,7 +247,7 @@ class Registration(models.Model):
         ordering = ["created"]
 
     def get_absolute_url(self):
-       return '/'
+       return 'send_application_email'
     def __str__(self):
         return self.first_name + ' ' + self.last_name
 

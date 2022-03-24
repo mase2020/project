@@ -293,8 +293,8 @@ class ApplicationList(LoginRequiredMixin,PermissionRequiredMixin, ListView):
         }
         return render(request,'registration/manage_applications.html',context)
 
-def save_student(req, pk,LoginRequiredMixin, PermissionRequiredMixin,):
-    permission_required= ('madrasa.add_student', 'madrasa.change_student', 'madrasa_delete_student', 'madrasa.view_student')
+def save_student(req, pk):
+    
     cursor = connection.cursor()
     cursor = connection.cursor()
 
@@ -302,15 +302,14 @@ def save_student(req, pk,LoginRequiredMixin, PermissionRequiredMixin,):
     madrasa_students.last_name, madrasa_students.email,
     madrasa_students.photography,
     madrasa_students.phone,madrasa_students.address,
-    madrasa_students.postcode,madrasa_students.DOB, 
-    madrasa_students.created)
+    madrasa_students.postcode,madrasa_students.DOB)
     SELECT   madrasa_registration.first_name, madrasa_registration.last_name,
     madrasa_registration.email, madrasa_registration.photography, 
     madrasa_registration.phone, madrasa_registration.address,
-    madrasa_registration.postcode, madrasa_registration.DOB, 
+    madrasa_registration.postcode, madrasa_registration.DOB
     FROM  madrasa_registration
-    where madrasa_registration.id =  %s
-        ''',[ pk])
+    where madrasa_registration.id = %s
+        ''',[pk])
 
     return redirect("manage_applications")
 
