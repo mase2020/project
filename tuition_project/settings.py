@@ -90,21 +90,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tuition_project.wsgi.application'
 
-import dj_database_url
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-DATABASES = {}
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'd530sldq58ccmm',
-#         'USER': os.environ.get("USER"),
-#         'PASSWORD': os.environ.get("PASSWORD"),
-#         'HOST': 'ec2-63-32-248-14.eu-west-1.compute.amazonaws.com',
-#         'PORT': '5432',
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd530sldq58ccmm',
+        'USER': os.environ.get("USER"),
+        'PASSWORD': os.environ.get("PASSWORD"),
+        'HOST': 'ec2-63-32-248-14.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
 
         #     'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'tuition_centre_management_system',
@@ -114,8 +111,8 @@ DATABASES['default'] = dj_database_url.config(conn_max_age=600)
         # 'PORT': '3306',
 
 
-#     }
-# }
+    }
+}
 
 
 # Password validation
