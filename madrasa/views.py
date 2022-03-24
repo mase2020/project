@@ -298,18 +298,18 @@ def save_student(req, pk,LoginRequiredMixin, PermissionRequiredMixin,):
     cursor = connection.cursor()
     cursor = connection.cursor()
 
-    cursor.execute('''INSERT INTO tuition_centre_management_system.madrasa_students(tuition_centre_management_system.madrasa_students.first_name,
-    tuition_centre_management_system.madrasa_students.last_name, tuition_centre_management_system.madrasa_students.email,
-    tuition_centre_management_system.madrasa_students.photography,
-    tuition_centre_management_system.madrasa_students.phone,tuition_centre_management_system.madrasa_students.address,
-    tuition_centre_management_system.madrasa_students.postcode,tuition_centre_management_system.madrasa_students.DOB, 
-    tuition_centre_management_system.madrasa_students.created)
-    SELECT   tuition_centre_management_system.madrasa_registration.first_name, tuition_centre_management_system.madrasa_registration.last_name,
-    tuition_centre_management_system.madrasa_registration.email, tuition_centre_management_system.madrasa_registration.photography, 
-    tuition_centre_management_system.madrasa_registration.phone, tuition_centre_management_system.madrasa_registration.address,
-    tuition_centre_management_system.madrasa_registration.postcode, tuition_centre_management_system.madrasa_registration.DOB, 
-    FROM  tuition_centre_management_system.madrasa_registration
-    where tuition_centre_management_system.madrasa_registration.id =  %s
+    cursor.execute('''INSERT INTO madrasa_students(madrasa_students.first_name,
+    madrasa_students.last_name, madrasa_students.email,
+    madrasa_students.photography,
+    madrasa_students.phone,madrasa_students.address,
+    madrasa_students.postcode,madrasa_students.DOB, 
+    madrasa_students.created)
+    SELECT   madrasa_registration.first_name, madrasa_registration.last_name,
+    madrasa_registration.email, madrasa_registration.photography, 
+    madrasa_registration.phone, madrasa_registration.address,
+    madrasa_registration.postcode, madrasa_registration.DOB, 
+    FROM  madrasa_registration
+    where madrasa_registration.id =  %s
         ''',[ pk])
 
     return redirect("manage_applications")
@@ -945,13 +945,13 @@ def get_students(req):
 
     cursor = connection.cursor()
 
-    cursor.execute('''SELECT tuition_centre_management_system.madrasa_students.id, tuition_centre_management_system.madrasa_students.first_name, tuition_centre_management_system.madrasa_students.last_name, 
-tuition_centre_management_system.madrasa_classattendance.status  FROM tuition_centre_management_system.madrasa_classattendance
-    INNER JOIN tuition_centre_management_system.madrasa_students on tuition_centre_management_system.madrasa_classattendance.student_id_id = tuition_centre_management_system.madrasa_students.id
-    INNER JOIN tuition_centre_management_system.madrasa_classes on tuition_centre_management_system.madrasa_students.which_class_id = tuition_centre_management_system.madrasa_classes.id 
-    inner join tuition_centre_management_system.madrasa_attendance on tuition_centre_management_system.madrasa_classes.id = tuition_centre_management_system.madrasa_attendance.classes_id
+    cursor.execute('''SELECT madrasa_students.id, madrasa_students.first_name, madrasa_students.last_name, 
+madrasa_classattendance.status  FROM madrasa_classattendance
+    INNER JOIN madrasa_students on madrasa_classattendance.student_id_id = madrasa_students.id
+    INNER JOIN madrasa_classes on madrasa_students.which_class_id = madrasa_classes.id 
+    inner join madrasa_attendance on madrasa_classes.id = madrasa_attendance.classes_id
 
-    where tuition_centre_management_system.madrasa_classes.id = %s AND tuition_centre_management_system.madrasa_attendance.date = %s ''',[class_id, date])
+    where madrasa_classes.id = %s AND madrasa_attendance.date = %s ''',[class_id, date])
     row = cursor.fetchall()
     list_data=[]
    
@@ -1051,14 +1051,14 @@ def get_homework(req):
     cursor = connection.cursor()
   
 
-    cursor.execute('''Select tuition_centre_management_system.madrasa_subject.subject, tuition_centre_management_system.madrasa_homework.content, tuition_centre_management_system.madrasa_audio.audio, tuition_centre_management_system.madrasa_audio.description
-     from tuition_centre_management_system.madrasa_homework
-     inner join tuition_centre_management_system.madrasa_audio on tuition_centre_management_system.madrasa_homework.audio_id = tuition_centre_management_system.madrasa_audio.id
-inner join tuition_centre_management_system.madrasa_course on tuition_centre_management_system.madrasa_homework.course_id = tuition_centre_management_system.madrasa_course.id
-inner join tuition_centre_management_system.madrasa_classes on tuition_centre_management_system.madrasa_course.classes_id = tuition_centre_management_system.madrasa_classes.id
-inner join tuition_centre_management_system.madrasa_subject on tuition_centre_management_system.madrasa_course.subject_id = tuition_centre_management_system.madrasa_subject.id
-where  tuition_centre_management_system.madrasa_classes.id = %s 
-and tuition_centre_management_system.madrasa_homework.date = %s ''',[class_id, date])
+    cursor.execute('''Select madrasa_subject.subject, madrasa_homework.content, madrasa_audio.audio, madrasa_audio.description
+     from madrasa_homework
+     inner join madrasa_audio on madrasa_homework.audio_id = madrasa_audio.id
+inner join madrasa_course on madrasa_homework.course_id = madrasa_course.id
+inner join madrasa_classes on madrasa_course.classes_id = madrasa_classes.id
+inner join madrasa_subject on madrasa_course.subject_id = madrasa_subject.id
+where  madrasa_classes.id = %s 
+and madrasa_homework.date = %s ''',[class_id, date])
 
     row = cursor.fetchall()
     list_data=[]
@@ -1187,12 +1187,12 @@ def get_fees(req):
     cursor = connection.cursor()
     cursor = connection.cursor()
 
-    cursor.execute('''Select tuition_centre_management_system.madrasa_students.first_name,tuition_centre_management_system.madrasa_students.last_name, sum(tuition_centre_management_system.madrasa_fees.amount) from tuition_centre_management_system.madrasa_fees
-    inner join tuition_centre_management_system.madrasa_students on tuition_centre_management_system.madrasa_fees.student_id_id = tuition_centre_management_system.madrasa_students.id
-    inner join tuition_centre_management_system.madrasa_classes on tuition_centre_management_system.madrasa_students.which_class_id = tuition_centre_management_system.madrasa_classes.id
-    where  tuition_centre_management_system.madrasa_classes.id = %s
-    AND tuition_centre_management_system.madrasa_fees.year = %s
-    group by tuition_centre_management_system.madrasa_students.first_name , tuition_centre_management_system.madrasa_students.last_name''',[class_id, date])
+    cursor.execute('''Select madrasa_students.first_name,madrasa_students.last_name, sum(madrasa_fees.amount) from madrasa_fees
+    inner join madrasa_students on madrasa_fees.student_id_id = madrasa_students.id
+    inner join madrasa_classes on madrasa_students.which_class_id = madrasa_classes.id
+    where  madrasa_classes.id = %s
+    AND madrasa_fees.year = %s
+    group by madrasa_students.first_name , madrasa_students.last_name''',[class_id, date])
 
     row = cursor.fetchall()
     list_data=[]
@@ -1233,13 +1233,13 @@ def get_fees_remaining(req):
     cursor = connection.cursor()
     cursor = connection.cursor()
 
-    cursor.execute('''Select tuition_centre_management_system.madrasa_students.first_name,tuition_centre_management_system.madrasa_students.last_name, sum(tuition_centre_management_system.madrasa_fees.amount) from tuition_centre_management_system.madrasa_fees
-    inner join tuition_centre_management_system.madrasa_students on tuition_centre_management_system.madrasa_fees.student_id_id = tuition_centre_management_system.madrasa_students.id
-    inner join tuition_centre_management_system.madrasa_classes on tuition_centre_management_system.madrasa_students.which_class_id = tuition_centre_management_system.madrasa_classes.id
-    where  tuition_centre_management_system.madrasa_fees.year = %s
+    cursor.execute('''Select madrasa_students.first_name,madrasa_students.last_name, sum(madrasa_fees.amount) from madrasa_fees
+    inner join madrasa_students on madrasa_fees.student_id_id = madrasa_students.id
+    inner join madrasa_classes on madrasa_students.which_class_id = madrasa_classes.id
+    where  madrasa_fees.year = %s
 
-    group by tuition_centre_management_system.madrasa_students.first_name , tuition_centre_management_system.madrasa_students.last_name
-    Having sum(tuition_centre_management_system.madrasa_fees.amount) < %s
+    group by madrasa_students.first_name , madrasa_students.last_name
+    Having sum(madrasa_fees.amount) < %s
     ''',[ date, amount])
 
     row = cursor.fetchall()
