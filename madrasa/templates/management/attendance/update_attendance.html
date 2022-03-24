@@ -98,13 +98,13 @@ let todaysdate = new Date();
                  
                       
                     
-                        if (json_data[key]["status1"] == 1){
-                        div_data+= '<input type="checkbox" checked="checked" name="student_data[]" value='+json_data[key]["id"]+'></td></tr>'
-                        }
-                        else{
-                            div_data+= '<input type="checkbox"  name="student_data[]" value='+json_data[key]["id"]+'></td></tr>'
-                        }
-                        i++
+                    if (json_data[key]["status1"] == true){
+                    div_data+= '<input type="checkbox" checked="checked" name="student_data[]" value='+json_data[key]["id"]+'></td></tr>'
+                    }
+                    else{
+                        div_data+= '<input type="checkbox"  name="student_data[]" value='+json_data[key]["id"]+'></td></tr>'
+                    }
+                    i++
                 }
 
                 div_data += '</tbody></table> </div></div>'
@@ -165,7 +165,7 @@ $.ajax({
         else{
             alert("Error in Saving Data")
         }
-        location.reload()
+        // location.reload()
     })
     .fail(function(){
         alert("Error in Saving Student")

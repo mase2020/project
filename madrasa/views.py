@@ -604,70 +604,6 @@ class checkout(View, LoginRequiredMixin,):
             return redirect("cart")
 
 
-# from paypalcheckoutsdk.orders import OrdersGetRequest
-
-# from .paypal import  PayPalClient
-
-# @login_required
-# def payment_complete(request):
-#     PPClient = PayPalClient()
-
-#     body = json.loads(request.body)
-#     data = body["orderID"]
-#     user_id = request.user.id
-
-#     requestorder = OrdersGetRequest(data)
-#     response = PPClient.client.execute(requestorder)
-
-#     total_paid = response.result.purchase_units[0].amount.value
-
-
-#     order = Order.objects.get(user=request.user, ordered=False)
-          
-
-        
-#     print("User is entering a new shipping address")
-#     shipping_address1 = response.result.purchase_units[0].shipping.address.address_line_1,
-#     shipping_address2 = response.result.purchase_units[0].shipping.address.admin_area_2,
-#     shipping_country = response.result.purchase_units[0].shipping.address.country_code,
-#     shipping_zip = response.result.purchase_units[0].shipping.address.postal_code,
-
-#     # if is_valid_form([shipping_address1, shipping_country, shipping_zip]):
-#     shipping_address = Address(
-#             user=request.user,
-#             street_address=shipping_address1,
-#             apartment_address=shipping_address2,
-#             country=shipping_country,
-#             zip=shipping_zip,
-            
-#         )
-#     shipping_address.save()
-
-#     order.shipping_address = shipping_address
-#     order.save()
-
-#     payment = Payment()
-    
-#     payment.user = request.user
-#     payment.amount = response.result.purchase_units[0].amount.value,
-#     payment.save()
-
-# # assign the payment to the order
-
-#     order_items = order.products.all()
-#     order_items.update(ordered=True)
-#     for item in order_items:
-#             item.save()
-
-    
-#     order.payment = payment
-#     order.ordered = True
-#     order.save()
-
-
-#     messages.success(self.request, "Your order was successful!")
-#     return redirect("payment_success")
-
 
 class paymentSuccessful(View, LoginRequiredMixin,):
 
@@ -939,6 +875,7 @@ class ClassAttendanceDelete(LoginRequiredMixin,PermissionRequiredMixin,  DeleteV
 def get_students(req):
     class_id = req.POST.get('class')
     date = req.POST.get('date')
+    # date = date.replace('\"' , '\'')
 
 
     cursor = connection.cursor()
@@ -946,12 +883,14 @@ def get_students(req):
     cursor = connection.cursor()
 
     cursor.execute('''SELECT madrasa_students.id, madrasa_students.first_name, madrasa_students.last_name, 
-madrasa_classattendance.status  FROM madrasa_classattendance
-    INNER JOIN madrasa_students on madrasa_classattendance.student_id_id = madrasa_students.id
-    INNER JOIN madrasa_classes on madrasa_students.which_class_id = madrasa_classes.id 
-    inner join madrasa_attendance on madrasa_classes.id = madrasa_attendance.classes_id
+madrasa_classattendance.status  FROM madrasa_students
+    INNER JOIN madrasa_classattendance on madrasa_students.id = madrasa_classattendance.student_id_id
+    inner join madrasa_attendance on madrasa_classattendance.attendance_id_id = madrasa_attendance.id
 
-    where madrasa_classes.id = %s AND madrasa_attendance.date = %s ''',[class_id, date])
+    INNER JOIN madrasa_classes on madrasa_attendance.classes_id = madrasa_classes.id 
+
+
+    where madrasa_attendance.classes_id = %s AND madrasa_attendance.date = %s''',[class_id, date])
     row = cursor.fetchall()
     list_data=[]
    
