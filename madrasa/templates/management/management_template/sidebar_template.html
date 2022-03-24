@@ -337,6 +337,16 @@
               </li>
 
       
+              <li class="nav-item">
+                {% url 'lobby' as lobby %}
+                <a
+                  href="{% url 'lobby' %}"
+                  class="nav-link {% if request.path == lobby %} active {% endif %} {% if request.path == lobby %} active {% endif %}"
+                >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>Online Class<span class="right badge badge-danger">New</span></p>
+                </a>
+              </li>
      
 <li class="nav-item has-treeview">
   <a href="#" class="nav-link">

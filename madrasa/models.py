@@ -111,7 +111,7 @@ class Homework(models.Model):
     date = models.DateField()
     course=models.ForeignKey(Course,on_delete=models.DO_NOTHING)
     content = models.TextField()
-    audio = models.ForeignKey(Audio,on_delete=models.DO_NOTHING,blank=True, null=True,)
+    audio = models.ForeignKey(Audio,on_delete=models.DO_NOTHING,default= 1)
     created = models.DateTimeField(auto_now_add=True)
   
  

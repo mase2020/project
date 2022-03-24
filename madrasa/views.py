@@ -995,8 +995,8 @@ def get_homework(req):
 inner join madrasa_course on madrasa_homework.course_id = madrasa_course.id
 inner join madrasa_classes on madrasa_course.classes_id = madrasa_classes.id
 inner join madrasa_subject on madrasa_course.subject_id = madrasa_subject.id
-where  madrasa_classes.id = %s 
-and madrasa_homework.date = %s ''',[class_id, date])
+where  madrasa_classes.id = 1 
+and madrasa_homework.date = '2022-03-21' ''',[class_id, date])
 
     row = cursor.fetchall()
     list_data=[]
