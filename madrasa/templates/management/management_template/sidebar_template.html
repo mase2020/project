@@ -40,6 +40,20 @@
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                {% if request.user|has_group:"admin" %}
+         
+               
+
+
+          <li class="nav-item">
+          {% url 'manage_applications' as manage_applications %}
+          <a
+            href="{{ manage_applications }}"
+            class="nav-link {% if request.path == manage_applications %} active {% endif %}"
+          >
+            <i class="nav-icon fas fa-th"></i>
+            <p>Manage Applications</p>
+          </a>
+        </li>       
         <li class="nav-item">
           {% url 'add_staff' as add_staff %}
           <a
@@ -47,9 +61,11 @@
             class="nav-link {% if request.path == add_staff %} active {% endif %}"
           >
             <i class="nav-icon fas fa-th"></i>
-            <p>Add Teacher</p>
+            <p>Add Staff</p>
           </a>
         </li>
+
+       
         <li class="nav-item">
           {% url 'manage_staff' as manage_staff %}
           <a
@@ -357,26 +373,6 @@
       </a>
     </li>
     
-    <li class="nav-item" >
-      {% url 'homework' as homework %}
-      <a
-        href="{% url 'homework' %}"
-        class="nav-link {% if request.path == homework %} active {% endif %} {% if request.path == homework %} active {% endif %}"
-      >
-      <i class="far fa-circle nav-icon"></i>
-        <p>View Homework</p>
-      </a>
-    </li>
-    <li class="nav-item" >
-      {% url 'add_audio' as add_audio %}
-      <a
-        href="{% url 'add_audio' %}"
-        class="nav-link {% if request.path == add_audio %} active {% endif %} {% if request.path == add_audio %} active {% endif %}"
-      >
-      <i class="far fa-circle nav-icon"></i>
-        <p>Add Audio</p>
-      </a>
-    </li>
   
     
     </ul>

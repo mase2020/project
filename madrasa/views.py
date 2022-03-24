@@ -1421,3 +1421,16 @@ def customer_email(req):
         return redirect('contact_us')
 
       
+def application_email(req):
+    if req.method == 'POST':
+      
+        to_emails = ['weekendmadrasa@madinamasjiddocklands.org.uk']
+        email = EmailMessage('Application received' , 'Application received', from_email=settings.EMAIL_HOST_USER, to=to_emails)
+    
+        email.encoding = 'us-ascii'
+        email.send()
+        messages.info(req, "Thank you for your application form, We will get back to you soon in sha Allah.")
+        return redirect('application_form')
+    else:
+        messages.info(req, "Notification error, please call us.")
+        return redirect('application_form')

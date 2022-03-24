@@ -96,19 +96,19 @@ WSGI_APPLICATION = 'tuition_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd530sldq58ccmm',
-        'USER': os.environ.get("USER"),
-        'PASSWORD': os.environ.get("PASSWORD"),
-        'HOST': 'ec2-63-32-248-14.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'd530sldq58ccmm',
+        # 'USER': os.environ.get("USER"),
+        # 'PASSWORD': os.environ.get("PASSWORD"),
+        # 'HOST': 'ec2-63-32-248-14.eu-west-1.compute.amazonaws.com',
+        # 'PORT': '5432',
 
-        #     'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'tuition_centre_management_system',
-        # 'USER': 'tuition_centre_management_system',
-        # 'PASSWORD': 'tuition_centre_management_password',
-        # 'HOST': 'localhost',
-        # 'PORT': '3306',
+            'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tuition_centre_management_system',
+        'USER': 'tuition_centre_management_system',
+        'PASSWORD': 'tuition_centre_management_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
 
 
     }

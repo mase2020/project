@@ -144,6 +144,7 @@ urlpatterns = [
     path('send_email_student',views.student_email, name= 'send_email_student'),
     path('message', views.message, name='message'),
     path('contact_us', views.contact_us, name='contact_us'),
+    path('send_application_email',views.application_email, name= 'send_application_email'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
