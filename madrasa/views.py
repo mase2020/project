@@ -302,11 +302,11 @@ def save_student(req, pk):
     last_name, email,
     photography,
     phone,address,
-    postcode,DOB)
+    postcode,"DOB")
     SELECT   first_name, last_name,
     email, photography, 
     phone, address,
-    postcode, DOB
+    postcode, "DOB"
     FROM  madrasa_registration
     where id = %s
         ''',[pk])
