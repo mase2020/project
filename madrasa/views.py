@@ -298,17 +298,17 @@ def save_student(req, pk):
     cursor = connection.cursor()
     cursor = connection.cursor()
 
-    cursor.execute('''INSERT INTO madrasa_students(madrasa_students.first_name,
-    madrasa_students.last_name, madrasa_students.email,
-    madrasa_students.photography,
-    madrasa_students.phone,madrasa_students.address,
-    madrasa_students.postcode,madrasa_students.DOB)
-    SELECT   madrasa_registration.first_name, madrasa_registration.last_name,
-    madrasa_registration.email, madrasa_registration.photography, 
-    madrasa_registration.phone, madrasa_registration.address,
-    madrasa_registration.postcode, madrasa_registration.DOB
+    cursor.execute('''INSERT INTO madrasa_students(first_name,
+    last_name, email,
+    photography,
+    phone,address,
+    postcode,DOB)
+    SELECT   first_name, last_name,
+    email, photography, 
+    phone, address,
+    postcode, DOB
     FROM  madrasa_registration
-    where madrasa_registration.id = %s
+    where id = %s
         ''',[pk])
 
     return redirect("manage_applications")
