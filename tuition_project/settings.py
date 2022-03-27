@@ -100,7 +100,7 @@ DATABASES = {
         'NAME': 'dflcjfk8havted',
         'USER': os.environ.get("USER"),
         'PASSWORD': os.environ.get("PASSWORD"),
-        'HOST': 'ec2-63-32-248-14.eu-west-1.compute.amazonaws.com',
+        'HOST': 'ec2-52-30-67-143.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
 
         #     'ENGINE': 'django.db.backends.mysql',
