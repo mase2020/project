@@ -32,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-h$sisbvm98^!8h@!uon=d&shi"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['madrasaproject.herokuapp.com', 'www.madrasaproject.herokuapp.com', '127.0.0.1', 'localhost']
 
 MEDIA_URL= "/media/"
@@ -98,8 +98,8 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'd1e6s5dnbd6ga8',
-        'USER': os.environ.get("USER"),
-        'PASSWORD': os.environ.get("PASSWORD"),
+        'USER': "zksnmkeywlowsr",
+        'PASSWORD': "04724a7a7a76e41964c9d12891f369705ffd0dfe832a60051ab5596ed4c8d82c",
         'HOST': 'ec2-52-48-159-67.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
 
