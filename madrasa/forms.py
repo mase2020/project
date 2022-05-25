@@ -1,11 +1,9 @@
-from cProfile import label
 from .models import Students,Classes,Teachers, Product, Subject, Course, Attendance, classAttendance,Homework,Fees,Registration,Audio
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
-import datetime
 
 class StudentsCreateForm(forms.ModelForm):
 
@@ -30,13 +28,8 @@ class StudentsCreateForm(forms.ModelForm):
             'postcode':forms.TextInput(attrs={'class': 'form-control'}),
             'which_class':forms.Select(attrs={'class': 'form-control'}),
             'gender':forms.Select(attrs={'class': 'form-control'}),
-            # 'parent1':forms.TextInput(attrs={'class': 'form-control'}),
-            # 'phone1':forms.TextInput(attrs={'class': 'form-control'}),
-            # 'parent2':forms.TextInput(attrs={'class': 'form-control'}),
-            # 'phone2':forms.TextInput(attrs={'class': 'form-control'}),
-      
             'phone':forms.TextInput(attrs={'class': 'form-control'}),
-            # 'special_needs':forms.Textarea(attrs={'class': 'form-control'}),
+    
             
         }
 # TeachersCreateForm has been adapted from
@@ -211,10 +204,7 @@ class AttendanceUpdateForm(forms.ModelForm):
 
         widgets= {
            'classes':forms.Select(attrs={'class': 'form-control'}),
-             
-        
-           
-            
+                    
         }
 
 

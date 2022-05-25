@@ -1,5 +1,5 @@
 
-from http.client import HTTPResponse
+
 from django.shortcuts import render,get_object_or_404,redirect
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -14,8 +14,6 @@ from django.views.generic.edit import CreateView,UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User,Group
 from django.utils import timezone
 from django.db import connection
 from django.http import HttpResponse
@@ -59,7 +57,6 @@ def login_view(request):
  
   # If the user is valid, then a user object is returned.
     if user is not None:
-
         login(request,user)
         return render('home')
     else:
@@ -317,6 +314,8 @@ class ApplicationList(LoginRequiredMixin,PermissionRequiredMixin, ListView):
         }
         return render(request,'registration/manage_applications.html',context)
 
+
+#This function will save the new applicant into the students tables.
 def save_student(req, pk):
     
     cursor = connection.cursor()
@@ -337,7 +336,7 @@ def save_student(req, pk):
 
     return redirect("manage_applications")
 
-
+#Delete the application
 class ApplicationDelete(LoginRequiredMixin,PermissionRequiredMixin,  DeleteView):
     permission_required= ('madrasa.add_student', 'madrasa.change_student', 'madrasa_delete_student', 'madrasa.view_student')
     model = Registration
@@ -348,11 +347,12 @@ class ApplicationDelete(LoginRequiredMixin,PermissionRequiredMixin,  DeleteView)
 
 
 ''' E-Commerce Views'''
-
+#render the product-detail page
 def product_detail(req):
     context ={}
     return render(req,'e-commerce/product-detail.html', context)
 
+#render the cart page if an order is active
 
 class cart(ListView):
     model= Order
@@ -369,10 +369,8 @@ class cart(ListView):
 
 
 
-
-class Products(  ListView):
-    
-    
+#CRUD for products
+class Products(  ListView):  
     model= Product
     def get(self, request,*args, **kwargs):
         items = Product.objects.all()
@@ -383,17 +381,11 @@ class Products(  ListView):
         }
         return render(request,'e-commerce/product.html', context)
 
-
-
-
-
 class ProductCreate(LoginRequiredMixin,PermissionRequiredMixin, CreateView):
     permission_required= ('madrasa.add_student', 'madrasa.change_student', 'madrasa_delete_student', 'madrasa.view_student')
     model = Product
     form_class = ProductCreateForm
     template_name = 'e-commerce/add_product.html'
-
-
 
 class ProductList(LoginRequiredMixin,PermissionRequiredMixin, ListView):
     permission_required= ('madrasa.add_student', 'madrasa.change_student', 'madrasa_delete_student', 'madrasa.view_student')
@@ -428,13 +420,15 @@ class ProductDetails( DetailView):
     model = Product
     template_name ='e-commerce/product-detail.html'
 
-# Update quantity of products in OrderItems
+
 
 # The following function has been adapted from
 # GitHub. 2019. django-ecommerce/views.py at master · justdjango/django-ecommerce. [online]
 #  Available at: <https://github.com/justdjango/django-ecommerce/blob/master/core/views.py>
 #  [Accessed 25 March 2022]
 
+
+# Update quantity of products in OrderItems
 @login_required(login_url= "/account/login/")
 def add_cart(req,slug):
    product= get_object_or_404(Product, slug=slug)
@@ -474,6 +468,8 @@ def add_cart(req,slug):
 #  Available at: <https://github.com/justdjango/django-ecommerce/blob/master/core/views.py>
 #  [Accessed 25 March 2022]
 
+
+# Update quantity of products in OrderItems
 @login_required(login_url= "/account/login/")
 def remove_quantity(request, slug):
     product = get_object_or_404(Product, slug=slug)
@@ -513,6 +509,8 @@ def remove_quantity(request, slug):
 #  Available at: <https://github.com/justdjango/django-ecommerce/blob/master/core/views.py>
 #  [Accessed 25 March 2022]
 
+
+# Remove item from carts
 @login_required(login_url= "/account/login/")
 def remove_cart(request, slug):
     product = get_object_or_404(Product, slug=slug)
@@ -557,6 +555,9 @@ def is_valid_form(values):
             valid = False
     return valid
 
+
+# User will add their address and make a payment.
+#The payment will be recorded, order will be complete, address will be gathered.
 class checkout(View, LoginRequiredMixin,):
     def get(self, *args, **kwargs):
         try:
@@ -630,15 +631,13 @@ class checkout(View, LoginRequiredMixin,):
                         messages.info(
                             self.request, "Please fill in the required shipping address fields")
 
-               
 
-        
         except ObjectDoesNotExist:
             messages.warning(self.request, "You do not have an active order")
             return redirect("cart")
 
 
-
+#Upon clicking for invoice
 class paymentSuccessful(View, LoginRequiredMixin,):
 
     def get(self, *args, **kwargs):
@@ -665,6 +664,7 @@ def paymentFailed(req):
     return render(req, 'e-commerce/confirmation.html', context)
 
 
+# Print invoice functionality
 class print_invoice(View,LoginRequiredMixin,):
 
     def get(self, *args, **kwargs):
@@ -682,6 +682,7 @@ class print_invoice(View,LoginRequiredMixin,):
             return render(self.request, 'e-commerce/invoice-print.html', context)
 
 
+# generate a pdf
 
 @login_required(login_url= "/account/login/")
 def generate_pdf(request):
@@ -716,7 +717,7 @@ def generate_pdf(request):
 
     return response
 
-
+# generate a pdf and send email to buyer
 @login_required(login_url= "/account/login/")
 def send_email(req):
 
@@ -751,7 +752,7 @@ def send_email(req):
         response.write(output.read())
         pdf = HTML(string=html_string, base_url='http://8d8093d5.ngrok.io/users/process/').write_pdf(
             stylesheets=[CSS(string='body { font-family: serif}')])
-        to_emails = [order.user.email, "weekendmadrasa@madinamasjiddocklands.org.uk"]
+        to_emails = [order.user.email]
         subject = "Invoice"
         email = EmailMessage(subject, body=pdf, from_email=settings.EMAIL_HOST_USER, to=to_emails)
         email.attach('invoice.pdf', pdf, "application/pdf")
@@ -784,6 +785,9 @@ def take_attendance(req):
     # hackstarsj/student_management_system_part_11. [online]
     # Available at: <https://github.com/hackstarsj/student_management_system_part_11/blob/master/student_management_app/templates/staff_template/staff_take_attendance.html> 
     # [Accessed 19 March 2022].
+
+
+#  retrieve students by their class    
 @csrf_exempt
 @login_required(login_url= "/account/login/")
 def get_students_register(req):
@@ -799,6 +803,7 @@ def get_students_register(req):
         list_data.append(data_small)
     return JsonResponse(json.dumps(list_data),content_type="application/json",safe=False)
 
+#Save attendance after registration
     
 @csrf_exempt
 @login_required(login_url= "/account/login/")
@@ -841,6 +846,7 @@ class AttendanceList(LoginRequiredMixin,PermissionRequiredMixin, ListView):
         }
         return render(request,'management/attendance/attendance_view_template.html',context)
 
+# CRUD for attendance data
 class AttendanceUpdate(LoginRequiredMixin,PermissionRequiredMixin,  UpdateView):
     permission_required= ('madrasa.add_student', 'madrasa.change_student', 'madrasa_delete_student', 'madrasa.view_student')
     model = Attendance
@@ -888,7 +894,7 @@ class ClassAttendanceDelete(LoginRequiredMixin,PermissionRequiredMixin,  DeleteV
     template_name = 'management/attendance/class_attendance_delete_form.html'
     success_url = '/manage_class_attendance'
 
-
+# To update a classes attendance, fetch students with the date that needs to be changed
 @csrf_exempt
 @login_required(login_url= "/account/login/")
 def get_students(req):
@@ -941,6 +947,8 @@ def update_attendance(req):
 # Available at: <https://github.com/hackstarsj/student_management_system_part_11/blob/master/student_management_app/templates/staff_template/staff_take_attendance.html> 
 # [Accessed 19 March 2022].
 
+
+# save the data once updated.
 @csrf_exempt
 @login_required(login_url= "/account/login/")
 def update_attendance_data(req):
@@ -1085,6 +1093,8 @@ class HomeworkDelete(LoginRequiredMixin,PermissionRequiredMixin,  DeleteView):
 
 ''' fees Views '''
 
+#CRUD for fees
+
 class FeesCreate(LoginRequiredMixin,PermissionRequiredMixin, CreateView):
     permission_required= ('madrasa.add_student', 'madrasa.change_student', 'madrasa_delete_student', 'madrasa.view_student')
     model = Fees
@@ -1226,22 +1236,9 @@ def get_fees_remaining(req):
 
 
 
-'''Sending emails
 
 
-from django.core.mail import EmailMessage
-from django.conf import settings
-from django.template.loader import render_to_string
-
-  email = EmailMessage('Hello', 'hello', settings.EMAIL_HOST_USER,['masum07@hotmail.co.uk'],)
-    email.fail_silently = False
-    email.send()
-'''
-
-
-
-
-
+#Create a pdf invoice for the fees
 class Generate_fees_invoice(View):
     def get(self, request,*args, **kwargs):
     
@@ -1404,7 +1401,7 @@ https://www.youtube.com/watch?v=Oxnz8Us1QAQ
 def admin_home(request):
     return render(request,"management/management_template/home_content.html")
 
-
+# contact us page, send message
 
 def message(req):
 
@@ -1415,7 +1412,7 @@ def student_email(req):
         message = req.POST['message']
         email_ad = req.POST['email_ad']
         subject = req.POST['name1']
-        to_emails = ['weekendmadrasa@madinamasjiddocklands.org.uk']
+        to_emails = [settings.EMAIL_HOST_USER]
         email = EmailMessage('Name: ' +subject + '  From: '+ email_ad , body='From: '+ email_ad + '\n \n' + message, from_email=settings.EMAIL_HOST_USER, to=to_emails)
     
         email.encoding = 'us-ascii'
@@ -1428,7 +1425,7 @@ def student_email(req):
 
       
 
-    
+    # contact us page, send message
 
 def contact_us(req):
     return render(req, 'e-commerce/contact.html')
@@ -1439,7 +1436,7 @@ def customer_email(req):
         message = req.POST['message']
         email_ad = req.POST['email_ad']
         subject = req.POST['name1']
-        to_emails = ['weekendmadrasa@madinamasjiddocklands.org.uk']
+        to_emails = [settings.EMAIL_HOST_USER]
         email = EmailMessage('Name: ' +subject + '  From: '+ email_ad , body='From: '+ email_ad + '\n \n' + message, from_email=settings.EMAIL_HOST_USER, to=to_emails)
     
         email.encoding = 'us-ascii'
@@ -1450,11 +1447,11 @@ def customer_email(req):
         messages.info(req, "Error sending message.")
         return redirect('contact_us')
 
-      
+#Email confirmation after an application
 def application_email(req):
     if req.method == 'POST':
       
-        to_emails = ['weekendmadrasa@madinamasjiddocklands.org.uk']
+        to_emails = [settings.EMAIL_HOST_USER]
         email = EmailMessage('Application received' , 'Application received', from_email=settings.EMAIL_HOST_USER, to=to_emails)
     
         email.encoding = 'us-ascii'
