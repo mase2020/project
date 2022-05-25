@@ -720,8 +720,7 @@ def generate_pdf(request):
 @login_required(login_url= "/account/login/")
 def send_email(req):
 
-    
-         # Model data
+    # Model data
     orders = Order.objects.latest('slug')
            
     order = Order.objects.get(user=req.user, slug = orders.slug)
@@ -752,8 +751,8 @@ def send_email(req):
         response.write(output.read())
         pdf = HTML(string=html_string, base_url='http://8d8093d5.ngrok.io/users/process/').write_pdf(
             stylesheets=[CSS(string='body { font-family: serif}')])
-        to_emails = ['masum07@hotmail.co.uk']
-        subject = "Certificate from Nami Montana"
+        to_emails = [order.user.email, "weekendmadrasa@madinamasjiddocklands.org.uk"]
+        subject = "Invoice"
         email = EmailMessage(subject, body=pdf, from_email=settings.EMAIL_HOST_USER, to=to_emails)
         email.attach('invoice.pdf', pdf, "application/pdf")
         email.content_subtype = "pdf"  # Main content is now text/html
@@ -1341,10 +1340,10 @@ def room(request):
 
 import os
 def getToken(request):
-    # appId = os.environ.get("APP_ID")
-    # appCertificate = os.environ.get("APP_CERT")
-    appId = "26ee4543d18c4a0086d36c498bb4f3c3"
-    appCertificate = "2c4101e81d3b4b65b7852b3885da6fa0"
+
+    # TODO: replace appId and appCertificate with own credentials
+    appId = os.environ.get("APP_ID")
+    appCertificate = os.environ.get("APP_CERT")
     channelName = request.GET.get('channel')
     uid = random.randint(1, 230)
     expirationTimeInSeconds = 3600
