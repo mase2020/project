@@ -411,19 +411,19 @@ class RegistrationCreateForm(forms.ModelForm):
     a3 = forms.BooleanField(label='', label_suffix=" : ",
                                   required=True, disabled=False,
                                   widget=forms.widgets.CheckboxInput(attrs={'class': 'checkbox-inline'}),
-                                  help_text='<span class="my-class textinfo">I will endeavour to support my child in preparing homework & ensure my child’s attendance at the allocated time.</span>',
+                                  help_text='<span class="my-class textinfo">I will endeavour to support my student in preparing homework & ensure the attendance at the allocated time.</span>',
                                   error_messages={'required': "Please check the box"})
     a4 = forms.BooleanField(label='', label_suffix=" : ",
                                   required=True, disabled=False,
                                   widget=forms.widgets.CheckboxInput(attrs={'class': 'checkbox-inline'}),
-                                  help_text='<span class="my-class textinfo">I  will also ensure my child is in full uniform as described in the dress code policy.</span>',
+                                  help_text='<span class="my-class textinfo">I  will also ensure my student is in full uniform as described in the dress code policy.</span>',
                                   error_messages={'required': "Please check the box"})
 
 
     a5 = forms.BooleanField(label='', label_suffix=" : ",
                                   required=True, disabled=False,
                                   widget=forms.widgets.CheckboxInput(attrs={'class': 'checkbox-inline'}),
-                                  help_text='<span class="my-class textinfo">I understand and will adhere to the policies in place for my child while he/she is attending class.</span>',
+                                  help_text='<span class="my-class textinfo">I understand and will adhere to the policies in place for my student while he/she is attending class.</span>',
                                   error_messages={'required': "Please check the box"})
 
     photography = forms.BooleanField(label='', label_suffix=" : ",
@@ -436,7 +436,7 @@ class RegistrationCreateForm(forms.ModelForm):
         fields = ('email','heard','referred' , 'session','first_name', 'last_name', 'DOB', 'previous_madrasa','level_of_study','photography',\
              'address', 'postcode',  'phone', 'a1', 'a2', 'a3', 'a4', 'a5')
         help_texts = {
-        'session': "<br><hr/><div class='textinfo'><div><strong>DETAILS ABOUT THE CHILD</strong></div><div>Information provided on this form will be used for short listing for your child's placement at our establishment.</div><br>",
+        'session': "<br><hr/><div class='textinfo'><div><strong>DETAILS ABOUT THE student</strong></div><div>Information provided on this form will be used for short listing for your student's placement at our establishment.</div><br>",
     }
 
         widgets= {
@@ -453,14 +453,9 @@ class RegistrationCreateForm(forms.ModelForm):
            
             'address':forms.TextInput(attrs={'class': 'form-control'}),
             'postcode':forms.TextInput(attrs={'class': 'form-control'}),
-           
-            # 'parent1':forms.TextInput(attrs={'class': 'form-control'}),
-            # 'phone1':forms.TextInput(attrs={'class': 'form-control'}),
-            # 'parent2':forms.TextInput(attrs={'class': 'form-control'}),
-            # 'phone2':forms.TextInput(attrs={'class': 'form-control'}),
-      
+
             'phone':forms.TextInput(attrs={'class': 'form-control'}),
-            # 'special_needs':forms.Textarea(attrs={'class': 'form-control'}),
+           
             
             
         }

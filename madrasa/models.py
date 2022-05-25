@@ -126,18 +126,13 @@ class Students(models.Model):
     null=True,)
     level_of_study = models.CharField(max_length = 20,choices=level_categories,   blank=True,
     null=True,)
-    # special_needs = models.CharField('Special needs', max_length=255, default='NO')
+
     address = models.CharField(max_length=255)
     postcode =models.CharField(max_length=8)
     which_class= models.ForeignKey( Classes, on_delete=models.CASCADE,blank=True, null=True,)
-    # parent1=models.CharField('Parent/Guardian' , max_length=30)
-    # phone1= models.CharField('Phone Number', max_length=15)
-    # parent2=models.CharField('Parent/Guardian'  , max_length=30)
-    # phone2 = models.CharField('Phone Number',max_length=15)
-    # gender =models.CharField(max_length=8)
 
     phone = models.CharField('Phone Number',max_length=15)
-    # class_id = models.ForeignKey(Classes,on_delete=models.CASCADE)
+
     
     class Meta:
         ordering = ["which_class"]
@@ -201,24 +196,18 @@ class Registration(models.Model):
     first_name = models.CharField("First Name / Middle Names",max_length=255)
     last_name = models.CharField("Surname ",max_length=255)
     DOB = models.DateField("Date of Birth")
-    # gender =models.CharField(max_length=8)
-    #school year
+
     previous_madrasa = models.CharField('Previous Madrasa', max_length=255)
     level_of_study = models.CharField(max_length = 20,choices=level_categories)
     photography =models.BooleanField(blank=True, null=True,default=False)
 
-    # special_needs = models.CharField('Special needs', max_length=255, default='NO')
+ 
     address = models.CharField(max_length=255)
     postcode =models.CharField(max_length=8)
  
-    # parent1=models.CharField('Parent/Guardian' , max_length=30)
-    # phone1= models.CharField('Phone Number', max_length=15)
-    # parent2=models.CharField('Parent/Guardian'  , max_length=30)
-    # phone2 = models.CharField('Phone Number',max_length=15)
-    
 
     phone = models.CharField('Phone Number',max_length=15)
-    # class_id = models.ForeignKey(Classes,  on_delete=models.CASCADE)
+
     a1=models.BooleanField(default=False)
     a2=models.BooleanField(default=False)
     a3=models.BooleanField(default=False)
