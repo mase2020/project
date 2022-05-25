@@ -1,3 +1,7 @@
+
+<!-- The backend features were implemented by the author, while adapting the front-end code to serve their project. The front end features such as CSS and UI were taken from: 
+AdminLTE.IO. 2022. Free Bootstrap Admin Template - AdminLTE.IO. [online] Available at: <https://adminlte.io/>
+[Accessed 24 February 2022]. -->
 {% extends 'management/management_template/base_template.html' %}
 {% block page_title %} 
 Add Homework
@@ -19,7 +23,26 @@ Add Homework
             <div class="form-group" style="padding: 20px;">
             {% csrf_token %}
             
-            {{ form.as_p }}
+            <div class="fieldWrapper">
+              {{ form.date.errors }}
+              <label for="{{ form.date.id_for_label }}">Date:</label>
+              {{ form.date }}
+          </div>
+          <div class="fieldWrapper">
+              {{ form.course.errors }}
+              <label for="{{ form.course.id_for_label }}">Course:</label>
+              {{ form.course }}
+          </div>
+          <div class="fieldWrapper">
+              {{ form.content.errors }}
+              <label for="{{ form.content.id_for_label }}">Content:</label>
+              {{ form.content }}
+          </div>
+          <div class="fieldWrapper">
+              {{ form.audio.errors }}
+              <label for="{{ form.audio.id_for_label }}">Audio:</label>
+              {{ form.audio }}
+          </div>
           
             <input class="btn btn-success" type="submit" value="Save" />
             <a href="{% url 'manage_homework'%}" class="btn btn-danger">CANCEL</a>

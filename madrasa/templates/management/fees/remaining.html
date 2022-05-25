@@ -1,3 +1,6 @@
+<!-- The backend features were implemented by the author, while adapting the front-end code to serve their project. The front end features such as CSS and UI were taken from: 
+AdminLTE.IO. 2022. Free Bootstrap Admin Template - AdminLTE.IO. [online] Available at: <https://adminlte.io/>
+[Accessed 24 February 2022]. -->
 
 {% extends 'management/management_template/base_template.html' %}
 {% block page_title %} 
@@ -16,8 +19,7 @@ Check Fees
           </div>
          
             <div class="form-group" style="padding: 20px;">
-           
-                
+      
 
                 <label>Year</label>
                 <select class="form-control" name=" year" id="year">
@@ -37,13 +39,6 @@ Check Fees
     
                 </select>
 
-  
-            
-          
-            
-          
-        
-       
         </div>
         <div class="card-footer">
             <button type="button" class="btn btn-primary btn-block" id="fetch_student">Fetch</button>
@@ -62,6 +57,12 @@ Check Fees
 {% endblock %}
 
 {% block custom_js %}
+
+<!--The following code was adapted from 
+GitHub. 2022. student_management_system_part_11/staff_update_attendance.html at master ·
+hackstarsj/student_management_system_part_11. [online]
+Available at: <https://github.com/hackstarsj/student_management_system_part_11/blob/master/student_management_app/templates/staff_template/staff_take_attendance.html> 
+[Accessed 19 March 2022]. -->
 <script>
   
 
@@ -82,7 +83,6 @@ Check Fees
                 console.log(json_data)
                 if(json_data.length > 0){
 
-                
                 var div_data = '<div class="form-group"><div class="row"><div class="card-body table-responsive p-0"><table class="table table-hover text-nowrap"><thead><tr><th scope="col">#</th><th scope="col">Student</th ><th scope="col">Amount Paid</th><th scope="col">Remaining</th ><th scope="col" > </th><th scope="col" > </th ></tr></thead>'
                 let i = 1
                 for(key in json_data)
@@ -93,10 +93,6 @@ Check Fees
                 }
 
                 div_data += '</tbody></table> </div></div>'
-
-            
-
-
 
                 div_data+="</div></div>";
              

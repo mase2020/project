@@ -1,3 +1,8 @@
+<!--The following code was adapted from 
+GitHub. 2022. student_management_system_part_11/staff_update_attendance.html at master ·
+hackstarsj/student_management_system_part_11. [online]
+Available at: <https://github.com/hackstarsj/student_management_system_part_11/blob/master/student_management_app/templates/staff_template/staff_update_attendance.html> 
+[Accessed 19 March 2022]. -->
 {% extends 'management/management_template/base_template.html' %}
 {% block page_title %} 
 Update Attendance
@@ -13,8 +18,7 @@ Update Attendance
           <div class="card-header">
             <h3 class="card-title">Check Attendance</h3>
           </div>
-         
-            <div class="form-group" style="padding: 20px;">
+                     <div class="form-group" style="padding: 20px;">
            
                 <label>Class</label>
                 <select class="form-control" name=" class" id="classes">
@@ -24,22 +28,8 @@ Update Attendance
                     {% endfor %}
     
                 </select>
-
-            <!-- <label>Date</label>
-            <select class="form-control" type = 'date'name=" date" id="date">
-                {% for att in attendance %}
-                <option value ="{{att.id}}">{{att.date}}</option>
-                {% endfor %}
-
-            </select> -->
-
             <div class='form-group'><label>Attendance Date : </label><input type='date' name='date' value="fsd" 
                 id='date' class='form-control'></div><div class='form-group'><div class='row'>
-              
-            
-                    
-        
-       
         </div>
         <div class="card-footer">
             <button type="button" class="btn btn-primary btn-block" id="fetch_student">Fetch Students</button>
@@ -87,16 +77,13 @@ let todaysdate = new Date();
                 var json_data=JSON.parse(response);
                 console.log(json_data)
                 if(json_data.length > 0){
-
                 
                 var div_data = '<div class="form-group"><div class="row"><div class="card-body table-responsive p-0"><table class="table table-hover text-nowrap"><thead><tr><th scope="col">#</th><th scope="col">Student</th ><th scope="col">Attendance</th><th scope="col" > </th><th scope="col" > </th ></tr></thead>'
                 let i = 1
                 for(key in json_data)
                 {
                     
-                    div_data+='<tbody><tr><td>' + i +'</td><td   class="form-check-label">'+json_data[key]["name"]+'</td><td class="form-check">'
-                 
-                      
+                    div_data+='<tbody><tr><td>' + i +'</td><td   class="form-check-label">'+json_data[key]["name"]+'</td><td class="form-check">'                  
                     
                     if (json_data[key]["status1"] == true){
                     div_data+= '<input type="checkbox" checked="checked" name="student_data[]" value='+json_data[key]["id"]+'></td></tr>'
@@ -108,11 +95,6 @@ let todaysdate = new Date();
                 }
 
                 div_data += '</tbody></table> </div></div>'
-
-            
-
-
-
                 div_data+="</div></div>";
                 div_data+="<div class='form-group'>";
                 div_data+="<button id='save_attendance' class='btn btn-success btn-block' type='button'>Update Attendance </button>";
@@ -124,7 +106,6 @@ let todaysdate = new Date();
                 alert("no data found")
             }
               
-
             })
             .fail(function(){
                 alert("Error in Fetching Student")
@@ -165,29 +146,11 @@ $.ajax({
         else{
             alert("Error in Saving Data")
         }
-        // location.reload()
+        location.reload()
     })
     .fail(function(){
         alert("Error in Saving Student")
     })
-
-
-
-})
-                    
-
-
-            
-        
-    
+})    
 </script>
 {% endblock custom_js %}    
-<!-- div_data+='<tbody><tr><td>' + i +'</td><td   class="form-check-label">'+json_data[key]["name"]+'</td><td class="form-check"><input type="checkbox"' -->
-                    
-//     // if (json_data[key]["status"] == "1"){
-//     div_data+= 'checked="checked" name="student_data[]" value='+json_data[key]["id"]+'></td></tr>'
-//     // }
-//     // else{
-//     //     div_data+= 'name="student_data[]" value='+json_data[key]["status"]+'></td></tr>'
-//     // }
-//     i++

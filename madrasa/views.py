@@ -39,6 +39,10 @@ from django.db import connection
 from django.contrib.auth.decorators import login_required, permission_required
 
 '''admin views'''
+# The following function has been adapted from
+# Miah, M, 2021. GitHub - GitHub mase/2020/maktab:
+# Website for Madina Masjid Weekend Madrasa. [online] GitHub. 
+# Available at: <https://github.com/mase2020/maktab/> [Accessed 01 February 2022].
 
 #login view
 def login_view(request):
@@ -60,7 +64,11 @@ def login_view(request):
         return render('home')
     else:
       return HttpResponse("invalid credentials")
-    return render(request, "registration/login.html", context)
+
+# The following function has been adapted from
+# Miah, M, 2021. GitHub - GitHub mase/2020/maktab:
+# Website for Madina Masjid Weekend Madrasa. [online] GitHub. 
+# Available at: <https://github.com/mase2020/maktab/> [Accessed 01 February 2022].
 
 #logout
 def logout_view(request):
@@ -68,6 +76,10 @@ def logout_view(request):
   logout(request)
   return redirect("home")
 
+# The following function has been adapted from
+# Miah, M, 2021. GitHub - GitHub mase/2020/maktab:
+# Website for Madina Masjid Weekend Madrasa. [online] GitHub. 
+# Available at: <https://github.com/mase2020/maktab/> [Accessed 01 February 2022].
 
 #registration page
 class SignUp(CreateView):
@@ -75,7 +87,12 @@ class SignUp(CreateView):
     form_class = CreateUserForm
     template_name = 'registration/signup.html'
     success_url = reverse_lazy("login")
-   
+
+# The following function has been adapted from
+# Miah, M, 2021. GitHub - GitHub mase/2020/maktab:
+# Website for Madina Masjid Weekend Madrasa. [online] GitHub. 
+# Available at: <https://github.com/mase2020/maktab/> [Accessed 01 February 2022].
+
 #home page
 def index(req):
     context ={}
@@ -91,6 +108,11 @@ def admin(req):
 '''Management views'''
 
 #CRUD for students
+
+# The following functions until ClassDelete hhave been taken from the authors previous project
+# Miah, M, 2021. GitHub - GitHub mase/2020/maktab:
+# Website for Madina Masjid Weekend Madrasa. [online] GitHub. 
+# Available at: <https://github.com/mase2020/maktab/> [Accessed 01 February 2022].
 
 class StudentsCreate(LoginRequiredMixin,PermissionRequiredMixin, CreateView):
     permission_required= ('madrasa.add_student', 'madrasa.change_student', 'madrasa_delete_student', 'madrasa.view_student')
@@ -196,6 +218,9 @@ class ClassDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = '/manage_class'
 
 
+#End of re-used code
+
+
 
 # CRUD for Courses
 class CourseCreate(LoginRequiredMixin,PermissionRequiredMixin,  CreateView):
@@ -212,7 +237,6 @@ class CourseList(LoginRequiredMixin,PermissionRequiredMixin,  ListView):
         context = {
             'name': 'COURSES',
             'course_list': courses
-        
         }
         return render(request,'management/courses/manage_course_template.html',context)
 
@@ -227,7 +251,7 @@ class CourseDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required= ('madrasa.add_student', 'madrasa.change_student', 'madrasa_delete_student', 'madrasa.view_student')
     model = Course
     template_name = 'management/courses/course_delete_form.html'
-    success_url = '/manage_class'
+    success_url = '/manage_course'
 
 
 # CRUD for Subjects
@@ -341,7 +365,7 @@ class cart(ListView):
             return render(self.request, 'e-commerce/shopping-cart.html', context)
         except ObjectDoesNotExist:
             messages.warning(self.request, "You do not have an active order")
-            return redirect("/")
+            return redirect("/products")
 
 
 
@@ -400,16 +424,17 @@ class ProductDelete(LoginRequiredMixin,PermissionRequiredMixin,  DeleteView):
 
 
 
-
-
-
-
 class ProductDetails( DetailView):
     model = Product
     template_name ='e-commerce/product-detail.html'
 
 # Update quantity of products in OrderItems
-    
+
+# The following function has been adapted from
+# GitHub. 2019. django-ecommerce/views.py at master · justdjango/django-ecommerce. [online]
+#  Available at: <https://github.com/justdjango/django-ecommerce/blob/master/core/views.py>
+#  [Accessed 25 March 2022]
+
 @login_required(login_url= "/account/login/")
 def add_cart(req,slug):
    product= get_object_or_404(Product, slug=slug)
@@ -444,6 +469,10 @@ def add_cart(req,slug):
         )
 
 
+# The following function has been adapted from
+# GitHub. 2019. django-ecommerce/views.py at master · justdjango/django-ecommerce. [online]
+#  Available at: <https://github.com/justdjango/django-ecommerce/blob/master/core/views.py>
+#  [Accessed 25 March 2022]
 
 @login_required(login_url= "/account/login/")
 def remove_quantity(request, slug):
@@ -479,6 +508,11 @@ def remove_quantity(request, slug):
         return redirect("cart"
         )
 
+# The following function has been adapted from
+# GitHub. 2019. django-ecommerce/views.py at master · justdjango/django-ecommerce. [online]
+#  Available at: <https://github.com/justdjango/django-ecommerce/blob/master/core/views.py>
+#  [Accessed 25 March 2022]
+
 @login_required(login_url= "/account/login/")
 def remove_cart(request, slug):
     product = get_object_or_404(Product, slug=slug)
@@ -511,6 +545,10 @@ def remove_cart(request, slug):
 
 
 # Checkout Views
+# The following function and class have been adapted from
+# GitHub. 2019. django-ecommerce/views.py at master · justdjango/django-ecommerce. [online]
+#  Available at: <https://github.com/justdjango/django-ecommerce/blob/master/core/views.py>
+#  [Accessed 25 March 2022]
 
 def is_valid_form(values):
     valid = True
@@ -518,9 +556,6 @@ def is_valid_form(values):
         if field == '':
             valid = False
     return valid
-
-
-
 
 class checkout(View, LoginRequiredMixin,):
     def get(self, *args, **kwargs):
@@ -581,7 +616,7 @@ class checkout(View, LoginRequiredMixin,):
                         for item in order_items:
                               item.save()
 
-                       
+                
                         order.payment = payment
                         order.ordered = True
                         order.save()
@@ -648,23 +683,6 @@ class print_invoice(View,LoginRequiredMixin,):
 
 
 
-
-
-#home page
-def attendance(req):
-    context ={}
-    return render(req,'madrasa/attendance/demo.html', context)
-
-
-
-
-
-
-
-
-
-
-
 @login_required(login_url= "/account/login/")
 def generate_pdf(request):
     """Generate pdf."""
@@ -677,10 +695,10 @@ def generate_pdf(request):
             'payment_status':'success',
             'order': order
     }
-            # TODO: Edit this section for the confirmation view
-        
-
-    # Rendered
+# The following code was adapted from:
+# weasyprint, a., 2022. attach img file in pdf weasyprint. [online] Stack Overflow.
+#  Available at: <https://stackoverflow.com/questions/43539702/attach-img-file-in-pdf-weasyprint> 
+# [Accessed 24 March 2022].
     html_string = render_to_string('e-commerce/pdf.html', context)
     html = HTML(string=html_string)
     result = html.write_pdf()
@@ -695,8 +713,6 @@ def generate_pdf(request):
         output = open(output.name, 'rb')
         response.write(output.read())
        
-
-        # https://stackoverflow.com/questions/43539702/attach-img-file-in-pdf-weasyprint
 
     return response
 
@@ -716,7 +732,10 @@ def send_email(req):
     }
             # TODO: Edit this section for the confirmation view
         
-
+# The following code was adapted from:
+# weasyprint, a., 2022. attach img file in pdf weasyprint. [online] Stack Overflow.
+#  Available at: <https://stackoverflow.com/questions/43539702/attach-img-file-in-pdf-weasyprint> 
+# [Accessed 24 March 2022].
     # Rendered
     html_string = render_to_string('e-commerce/pdf.html', context)
     html = HTML(string=html_string)
@@ -741,8 +760,6 @@ def send_email(req):
         email.encoding = 'us-ascii'
         email.send()
 
-        # https://stackoverflow.com/questions/43539702/attach-img-file-in-pdf-weasyprint
-
     return response
 
 
@@ -763,7 +780,11 @@ def take_attendance(req):
    
     return  render(req,"management/attendance/take_attendance.html",context)
 
-
+    # The following code was adapted from 
+    # GitHub. 2022. student_management_system_part_11/staff_update_attendance.html at master ·
+    # hackstarsj/student_management_system_part_11. [online]
+    # Available at: <https://github.com/hackstarsj/student_management_system_part_11/blob/master/student_management_app/templates/staff_template/staff_take_attendance.html> 
+    # [Accessed 19 March 2022].
 @csrf_exempt
 @login_required(login_url= "/account/login/")
 def get_students_register(req):
@@ -792,8 +813,6 @@ def save_attendance_data(request):
     
     json_sstudent=json.loads(student_ids)
    
-
-
     try:
         attendance=Attendance(classes=classes ,date=attendance_date)
         attendance.save()
@@ -806,6 +825,7 @@ def save_attendance_data(request):
     except:
         return HttpResponse("ERR")
 
+#End of adapted code
 
 # View and update current attendance records
 
@@ -869,6 +889,7 @@ class ClassAttendanceDelete(LoginRequiredMixin,PermissionRequiredMixin,  DeleteV
     template_name = 'management/attendance/class_attendance_delete_form.html'
     success_url = '/manage_class_attendance'
 
+
 @csrf_exempt
 @login_required(login_url= "/account/login/")
 def get_students(req):
@@ -882,22 +903,26 @@ def get_students(req):
     cursor = connection.cursor()
 
     cursor.execute('''SELECT madrasa_students.id, madrasa_students.first_name, madrasa_students.last_name, 
-madrasa_classattendance.status  FROM madrasa_students
+    madrasa_classattendance.status  FROM madrasa_students
     INNER JOIN madrasa_classattendance on madrasa_students.id = madrasa_classattendance.student_id_id
     inner join madrasa_attendance on madrasa_classattendance.attendance_id_id = madrasa_attendance.id
-
     INNER JOIN madrasa_classes on madrasa_attendance.classes_id = madrasa_classes.id 
-
-
     where madrasa_attendance.classes_id = %s AND madrasa_attendance.date = %s''',[class_id, date])
     row = cursor.fetchall()
     list_data=[]
    
+# The following code was adapted from 
+# GitHub. 2022. student_management_system_part_11/staff_update_attendance.html at master ·
+# hackstarsj/student_management_system_part_11. [online]
+# Available at: <https://github.com/hackstarsj/student_management_system_part_11/blob/master/student_management_app/templates/staff_template/staff_take_attendance.html> 
+# [Accessed 19 March 2022].
+
     for student in row:
 
         data_small={"id":student[0],"name":student[1] + " " + student[2], "status1": student[3]}
         list_data.append(data_small)
     return JsonResponse(json.dumps(list_data),content_type="application/json",safe=False)
+# End of re-used code
 
 @login_required(login_url= "/account/login/")
 def update_attendance(req):
@@ -911,6 +936,11 @@ def update_attendance(req):
     return  render(req,"management/attendance/update_attendance.html",context)
 
 
+# The following code was adapted from 
+# GitHub. 2022. student_management_system_part_11/staff_update_attendance.html at master ·
+# hackstarsj/student_management_system_part_11. [online]
+# Available at: <https://github.com/hackstarsj/student_management_system_part_11/blob/master/student_management_app/templates/staff_template/staff_take_attendance.html> 
+# [Accessed 19 March 2022].
 
 @csrf_exempt
 @login_required(login_url= "/account/login/")
@@ -918,22 +948,13 @@ def update_attendance_data(req):
     student_ids=req.POST.get("student_ids")
     class_id = req.POST.get("classes")
 
-    
-    
     date = req.POST.get('date')
- 
 
-    
     json_sstudent=json.loads(student_ids)
-    #print(data[0]['id'])
-
 
     try:
         attendance=Attendance.objects.get(date= date, classes_id = class_id)
      
-       
-        
-       
 
         for stud in json_sstudent:
              student=Students.objects.get(id=stud['id'])
@@ -990,13 +1011,13 @@ def get_homework(req):
   
 
     cursor.execute('''Select madrasa_subject.subject, madrasa_homework.content, madrasa_audio.audio, madrasa_audio.description
-     from madrasa_homework
-     inner join madrasa_audio on madrasa_homework.audio_id = madrasa_audio.id
-inner join madrasa_course on madrasa_homework.course_id = madrasa_course.id
-inner join madrasa_classes on madrasa_course.classes_id = madrasa_classes.id
-inner join madrasa_subject on madrasa_course.subject_id = madrasa_subject.id
-where  madrasa_classes.id = 1 
-and madrasa_homework.date = '2022-03-21' ''',[class_id, date])
+    from madrasa_homework
+    inner join madrasa_audio on madrasa_homework.audio_id = madrasa_audio.id
+    inner join madrasa_course on madrasa_homework.course_id = madrasa_course.id
+    inner join madrasa_classes on madrasa_course.classes_id = madrasa_classes.id
+    inner join madrasa_subject on madrasa_course.subject_id = madrasa_subject.id
+    where  madrasa_classes.id = %s
+    and madrasa_homework.date = %s ''',[class_id, date])
 
     row = cursor.fetchall()
     list_data=[]
@@ -1135,13 +1156,18 @@ def get_fees(req):
     row = cursor.fetchall()
     list_data=[]
   
+# The following code was adapted from 
+# GitHub. 2022. student_management_system_part_11/staff_update_attendance.html at master ·
+# hackstarsj/student_management_system_part_11. [online]
+# Available at: <https://github.com/hackstarsj/student_management_system_part_11/blob/master/student_management_app/templates/staff_template/staff_take_attendance.html> 
+# [Accessed 19 March 2022].
     for row in row:
 
         data_small={"first_name":row[0],"last_name":row[1],"amount": " %.2f" % row[2], "remaining": " %.2f" % (540-row[2])}
         list_data.append(data_small)
     return JsonResponse(json.dumps(list_data),content_type="application/json",safe=False)
     
-
+# End of adapted code
 
 
 
@@ -1167,7 +1193,6 @@ def get_fees_remaining(req):
     date = req.POST.get('year')
     amount = req.POST.get('amount')
 
-
     cursor = connection.cursor()
     cursor = connection.cursor()
 
@@ -1182,6 +1207,12 @@ def get_fees_remaining(req):
 
     row = cursor.fetchall()
     list_data=[]
+
+    # The following code was adapted from 
+# GitHub. 2022. student_management_system_part_11/staff_update_attendance.html at master ·
+# hackstarsj/student_management_system_part_11. [online]
+# Available at: <https://github.com/hackstarsj/student_management_system_part_11/blob/master/student_management_app/templates/staff_template/staff_take_attendance.html> 
+# [Accessed 19 March 2022].
   
     for row in row:
 
@@ -1191,7 +1222,7 @@ def get_fees_remaining(req):
     
 
 
-
+# End of adapted code
 
 
 
@@ -1218,16 +1249,17 @@ class Generate_fees_invoice(View):
     
     # Model data
         orders = Fees.objects.get(id=self.kwargs['pk'])
-            
-        
-            
+
         context = {
             
                 'order': orders
         }
                 # TODO: Edit this section for the confirmation view
             
-
+# The following code was adapted from:
+# weasyprint, a., 2022. attach img file in pdf weasyprint. [online] Stack Overflow.
+#  Available at: <https://stackoverflow.com/questions/43539702/attach-img-file-in-pdf-weasyprint> 
+# [Accessed 24 March 2022].
         # Rendered
         html_string = render_to_string('management/fees/fees_pdf.html', context)
         html = HTML(string=html_string)
@@ -1243,8 +1275,6 @@ class Generate_fees_invoice(View):
             output = open(output.name, 'rb')
             response.write(output.read())
         
-
-            # https://stackoverflow.com/questions/43539702/attach-img-file-in-pdf-weasyprint
 
         return response
 
@@ -1282,7 +1312,13 @@ class AudioDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = '/manage_audio'
 
 
-
+'''
+Code taken from a Youtube tutorial
+Ivy, D., 2022. GitHub - divanov11/mychat:
+A video group video calling application using a Django backend with the Agora Web SDK. [online] GitHub. 
+Available at: <https://github.com/divanov11/mychat> [Accessed 21 March 2022].
+https://www.youtube.com/watch?v=Oxnz8Us1QAQ
+'''
 
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -1295,13 +1331,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
-'''
-Code taken from a Youtube tutorial
-Ivy, D., 2022. GitHub - divanov11/mychat:
-A video group video calling application using a Django backend with the Agora Web SDK. [online] GitHub. 
-Available at: <https://github.com/divanov11/mychat> [Accessed 21 March 2022].
-https://www.youtube.com/watch?v=Oxnz8Us1QAQ
-'''
+
 
 def lobby(request):
     return render(request, 'video/lobby.html')
@@ -1311,8 +1341,10 @@ def room(request):
 
 import os
 def getToken(request):
-    appId = os.environ.get("APP_ID")
-    appCertificate = os.environ.get("APP_CERT")
+    # appId = os.environ.get("APP_ID")
+    # appCertificate = os.environ.get("APP_CERT")
+    appId = "26ee4543d18c4a0086d36c498bb4f3c3"
+    appCertificate = "2c4101e81d3b4b65b7852b3885da6fa0"
     channelName = request.GET.get('channel')
     uid = random.randint(1, 230)
     expirationTimeInSeconds = 3600

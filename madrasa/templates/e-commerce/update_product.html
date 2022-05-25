@@ -1,6 +1,10 @@
+<!-- The backend features were implemented by the author, while adapting the front-end code to serve their project. The front end features such as CSS and UI were taken from: 
+AdminLTE.IO. 2022. Free Bootstrap Admin Template - AdminLTE.IO. [online] Available at: <https://adminlte.io/>
+[Accessed 24 February 2022]. -->
+
 {% extends '../management/management_template/base_template.html' %}
 {% block page_title %}
-Edit Student |  Username : {{ username }} | #ID : {{ id }}
+Edit Product
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
@@ -11,7 +15,7 @@ Edit Student |  Username : {{ username }} | #ID : {{ id }}
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Edit Student</h3>
+                <h3 class="card-title">Edit Product</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -22,7 +26,7 @@ Edit Student |  Username : {{ username }} | #ID : {{ id }}
                 {{ form.as_p }}
               
                 <input class="btn btn-success" type="submit" value="Save" />
-                <a href="{% url 'studentlist'%}" class="btn btn-danger">CANCEL</a>
+                <a href="{% url 'manage_products'%}" class="btn btn-danger">CANCEL</a>
                 </div>
                
             </form>

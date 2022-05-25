@@ -39,7 +39,10 @@ class StudentsCreateForm(forms.ModelForm):
             # 'special_needs':forms.Textarea(attrs={'class': 'form-control'}),
             
         }
-
+# TeachersCreateForm has been adapted from
+# Miah, M, 2021. GitHub - GitHub mase/2020/maktab:
+# Website for Madina Masjid Weekend Madrasa. [online] GitHub. 
+# Available at: <https://github.com/mase2020/maktab/> [Accessed 01 February 2022].
 
 class TeachersCreateForm(forms.ModelForm):
     class Meta:
@@ -83,14 +86,11 @@ class CourseCreateForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = ('classes' ,'subject', 'teacher' )
-
         widgets= {
             'subject':forms.Select(attrs={'class': 'form-control'}),
             'teacher':forms.Select(attrs={'class': 'form-control'}),
             'classes':forms.Select(attrs={'class': 'form-control'}),
-          
-            
-        }
+                }
 
 
 class StudentsUpdateForm(forms.ModelForm):
@@ -124,7 +124,10 @@ class StudentsUpdateForm(forms.ModelForm):
         }
 
 
-
+# TeachersUpdateForm has been adapted from
+# Miah, M, 2021. GitHub - GitHub mase/2020/maktab:
+# Website for Madina Masjid Weekend Madrasa. [online] GitHub. 
+# Available at: <https://github.com/mase2020/maktab/> [Accessed 01 February 2022].
 class TeachersUpdateForm(forms.ModelForm):
     class Meta:
         model = Teachers
@@ -176,6 +179,10 @@ class CourseUpdateForm(forms.ModelForm):
             
         }
 
+# CreateUserForm has been adapted from
+# Miah, M, 2021. GitHub - GitHub mase/2020/maktab:
+# Website for Madina Masjid Weekend Madrasa. [online] GitHub. 
+# Available at: <https://github.com/mase2020/maktab/> [Accessed 01 February 2022].
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -275,7 +282,10 @@ class ClassAttendanceUpdateForm(forms.ModelForm):
 
 
 class HomeworkCreateForm(forms.ModelForm):
+
+    
     class Meta:
+     
         model = Homework
         fields = ('date', 'course','content','audio')
 

@@ -30,7 +30,6 @@ urlpatterns = [
     path("signup/", views.SignUp.as_view(), name="signup"),
     path("logout", views.logout_view, name="logout"),
     #admin dashboard
-    path('attendance', views.attendance, name="attendance"),
     path('admin_home',views.admin_home,name="admin_home"),
     #Application forms
     path('application_form', views.Application.as_view(),name="application_form"),

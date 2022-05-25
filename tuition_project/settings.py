@@ -55,8 +55,7 @@ INSTALLED_APPS = [
     'django_countries',
     'crispy_forms',
 
-    'madrasa',
-    'quiz'
+    'madrasa'
 ]
 
 MIDDLEWARE = [
@@ -96,20 +95,12 @@ WSGI_APPLICATION = 'tuition_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dflcjfk8havted',
-        'USER': os.environ.get("USER"),
-        'PASSWORD': os.environ.get("PASSWORD"),
-        'HOST': 'ec2-52-30-67-143.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
-
-        #     'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'tuition_centre_management_system',
-        # 'USER': 'tuition_centre_management_system',
-        # 'PASSWORD': 'tuition_centre_management_password',
-        # 'HOST': 'localhost',
-        # 'PORT': '3306',
-
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tuition_centre_management_system',
+        'USER': 'tuition_centre_management_system',
+        'PASSWORD': 'tuition_centre_management_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -174,9 +165,16 @@ LOGIN_URL = '/'
 
 
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.ionos.co.uk'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER =os.environ.get("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD =os.environ.get("EMAIL_HOST_PASSWORD")
+# EMAIL_USE_TLS = True
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.ionos.co.uk'
 EMAIL_PORT = 587
-EMAIL_HOST_USER =os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD =os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER ="weekendmadrasa@madinamasjiddocklands.org.uk"
+EMAIL_HOST_PASSWORD ="Westferry%500"
 EMAIL_USE_TLS = True

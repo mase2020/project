@@ -1,3 +1,14 @@
+
+<!-- The mojority of the code on this page was implemented prior to the project and the author used this template to build on
+Miah, M, 2021. GitHub - GitHub mase/2020/maktab:
+Website for Madina Masjid Weekend Madrasa. [online] GitHub. 
+Available at: <https://github.com/mase2020/maktab/> [Accessed 01 February 2022]. -->
+
+<!-- template used from:
+StyleShout. 2022. Kreative - Modern Free HTML Website Template for Agencies | Styleshout. [online]
+Available at: <https://www.styleshout.com/free-templates/kreative/> 
+[Accessed 24 May 2021]. -->
+
 {% load static %} {% load auth_extras %}
 
 <!DOCTYPE html>
@@ -5,7 +16,7 @@
   <head>
     <!--- basic page needs
 
-    <!-- link to bootstrap 4.0 -->
+    link to bootstrap 4.0 -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -156,19 +167,7 @@
       <!-- end row -->
     </header>
     <!-- end s-header -->
-    <!-- <div class="banner">
-        <div class="banner__content">
-            <div class="banner__text">
-               
-                <strong>DISCOUNT ENDS ON WEDNESDAY.</strong>
-                
-                <button class="banner__close" type="button"><span class="material-icons-outlined">
-                    close
-                    </span></button>
-            </div>
-        </div>
-    </div>
-   -->
+
     {% block content %} {% endblock %}
 
     <!-- Java Script
@@ -176,11 +175,5 @@
     <script src="{%  static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/plugins.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
-    <!-- <script>
-        document.querySelector(".banner__close").addEventListener("click", function () {
-    this.closest(".banner").style.display = "none";
-  });
-  
-    </script> -->
   </body>
 </html>

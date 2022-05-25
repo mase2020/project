@@ -1,3 +1,8 @@
+<!--The following code was adapted from 
+GitHub. 2022. student_management_system_part_11/staff_update_attendance.html at master ·
+hackstarsj/student_management_system_part_11. [online]
+Available at: <https://github.com/hackstarsj/student_management_system_part_11/blob/master/student_management_app/templates/staff_template/staff_take_attendance.html> 
+[Accessed 19 March 2022]. -->
 {% extends 'management/management_template/base_template.html' %}
 {% block page_title %} 
 Take Attendance
@@ -22,9 +27,7 @@ Take Attendance
                 <option value ="{{classes.id}}">{{classes.title}}</option>
                 {% endfor %}
 
-            </select>
-
-        
+            </select>       
         <div class="card-footer">
             <button type="button" class="btn btn-primary btn-block" id="fetch_student">Fetch Students</button>
           </div>
@@ -45,8 +48,6 @@ Take Attendance
     $(document).ready(function(){
         $("#fetch_student").click(function(){
             var classes=$("#classes").val()
-           
-
             $.ajax({
                 url:"{% url 'get_students_register' %}",
                 type:'POST',
@@ -64,18 +65,11 @@ Take Attendance
                     div_data+='<tbody><tr><td>' + i +'</td><td   class="form-check-label">'+json_data[key]["name"]+'</td><td class="form-check"><input type="checkbox" checked="checked" name="student_data[]" value='+json_data[key]["id"]+'></td></tr>'
                     i++
                 }
-
                 div_data += '</tbody></table> </div></div>'
-
-            
-
-
-
                 div_data+="</div></div>";
                 div_data+="<div class='form-group'>";
-                div_data+="<button id='save_attendance' class='btn btn-success btn-block' type='button'>Save Attendance Data</button>";
+                div_data+="<button id='save_attendance' class='btn btn-success btn-block' type='button'>Save Attendance</button>";
                 div_data+="</div>";
-
                 $("#student_data").html(div_data);
 
             })
@@ -99,8 +93,6 @@ Take Attendance
                  }).get()
                 var attendance_date=$("#attendance_date").val();
                 var classes=$("#classes").val();
-              
-                
                 console.log(student_data)
                 student_data=JSON.stringify(student_data)
 
@@ -110,7 +102,6 @@ Take Attendance
                         data:{student_ids:student_data,attendance_date:attendance_date,class_id:classes},
                     })
                     .done(function(response){
-
                         if(response=="OK"){
                             alert("Attendance Save")
                         }
@@ -127,14 +118,12 @@ Take Attendance
             
         })
     
-
         let todaysdate = new Date();
                     let day = todaysdate.getDate();
                     let month = todaysdate.getMonth() + 1;
                     let year = todaysdate.getFullYear();
                     if (month < 10) month = "0" + month;
                     if (day < 10) day = "0" + day;
-                    
                     let today = year + "-" + month + "-" + day;
                     
                     document.getElementById("attendance_date").value = today;

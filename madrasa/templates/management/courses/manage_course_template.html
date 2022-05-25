@@ -1,5 +1,10 @@
+<!-- The backend features were implemented by the author, while adapting the front-end code to serve their project. The front end features such as CSS and UI were taken from: 
+AdminLTE.IO. 2022. Free Bootstrap Admin Template - AdminLTE.IO. [online] Available at: <https://adminlte.io/>
+[Accessed 24 February 2022]. -->
+
+
 {% extends 'management/management_template/base_template.html' %}  
-{% block page_title %} Manage Class
+{% block page_title %} Manage Course
 {% endblock %} 
 {% block main_content %}
 <!-- Main content -->
@@ -36,10 +41,8 @@
  
                   <th scope="col">#</th>
                   <th scope="col" >Class</th >
-                    <th scope="col" >Subject</th >
+                  <th scope="col" >Subject</th >
                   <th scope="col" >Teacher</th >
-                    
-              
                   <th scope="col" > </th>
                   <th scope="col" > </th >
                 </tr>
@@ -53,7 +56,6 @@
                   <td>{{ s.teacher}}</td>
                   <td><a href="{% url 'edit_course' s.id %}"><button class="btn btn-outline-dark btn-lg ">Edit</button></a></td> 
                   <td><a href="{% url 'coursedelete' s.id %}"><button class="btn btn-outline-dark btn-lg ">Delete</button></a></td>
-              
                 </tr>
                 {% endfor %}
               </tbody>

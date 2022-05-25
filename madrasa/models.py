@@ -1,5 +1,3 @@
-
-
 # Create your models here.
 from django.db import models
 from django.shortcuts import  reverse
@@ -8,9 +6,6 @@ from django.shortcuts import reverse
 from django_countries.fields import CountryField
 
 ''' models for admin use '''
-
-
-
 
 level_categories =(
     ('1','Qaaidah'),
@@ -109,12 +104,11 @@ class Audio(models.Model):
 class Homework(models.Model):
     id= models.AutoField(primary_key=True)
     date = models.DateField()
-    course=models.ForeignKey(Course,on_delete=models.DO_NOTHING)
+    course=models.ForeignKey(Course,on_delete=models.CASCADE)
     content = models.TextField()
-    audio = models.ForeignKey(Audio,on_delete=models.DO_NOTHING,default= 1)
+    audio = models.ForeignKey(Audio,on_delete=models.CASCADE,default= 1)
     created = models.DateTimeField(auto_now_add=True)
   
- 
 
     def get_absolute_url(self):
         return '/manage_homework'
@@ -135,7 +129,7 @@ class Students(models.Model):
     # special_needs = models.CharField('Special needs', max_length=255, default='NO')
     address = models.CharField(max_length=255)
     postcode =models.CharField(max_length=8)
-    which_class= models.ForeignKey( Classes, on_delete=models.DO_NOTHING,blank=True, null=True,)
+    which_class= models.ForeignKey( Classes, on_delete=models.CASCADE,blank=True, null=True,)
     # parent1=models.CharField('Parent/Guardian' , max_length=30)
     # phone1= models.CharField('Phone Number', max_length=15)
     # parent2=models.CharField('Parent/Guardian'  , max_length=30)
@@ -143,11 +137,8 @@ class Students(models.Model):
     # gender =models.CharField(max_length=8)
 
     phone = models.CharField('Phone Number',max_length=15)
-    # class_id = models.ForeignKey(Classes,  on_delete=models.DO_NOTHING)
+    # class_id = models.ForeignKey(Classes,on_delete=models.CASCADE)
     
- 
-
-
     class Meta:
         ordering = ["which_class"]
     def get_absolute_url(self):
@@ -155,14 +146,13 @@ class Students(models.Model):
     def __str__(self):
         return self.first_name + ' ' + self.last_name
 
+
 class Attendance(models.Model):
     id=models.AutoField(primary_key=True)
-    classes =models.ForeignKey(Classes,on_delete=models.DO_NOTHING)
+    classes =models.ForeignKey(Classes,on_delete=models.CASCADE)
     date=models.DateField()
     created=models.DateTimeField(auto_now_add=True)
   
-
-    
     def get_absolute_url(self):
        return '/manage_attendance'
     def __str__(self):
@@ -171,7 +161,7 @@ class Attendance(models.Model):
  
 class classAttendance(models.Model):
     id=models.AutoField(primary_key=True)
-    student_id=models.ForeignKey(Students,on_delete=models.DO_NOTHING)
+    student_id=models.ForeignKey(Students,on_delete=models.CASCADE)
     attendance_id=models.ForeignKey(Attendance,on_delete=models.CASCADE)
     status=models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
@@ -189,20 +179,16 @@ class Fees(models.Model):
     year = models.CharField(max_length = 5,choices=year_choices)
     term = models.CharField(max_length = 1,choices=term_choices)
     description= models.TextField(blank=True, null=True,)
-    student_id=models.ForeignKey(Students,on_delete=models.DO_NOTHING)
+    student_id=models.ForeignKey(Students,on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     
-
     def get_absolute_url(self):
        return '/manage_fees'
     def __str__(self):
-        
         return self.student_id.first_name +" " + self.student_id.last_name
 
     def calculate_fees(self,year):
         total = 540
-    
-  
         total -= self.amount
         return total
 
@@ -232,14 +218,12 @@ class Registration(models.Model):
     
 
     phone = models.CharField('Phone Number',max_length=15)
-    # class_id = models.ForeignKey(Classes,  on_delete=models.DO_NOTHING)
+    # class_id = models.ForeignKey(Classes,  on_delete=models.CASCADE)
     a1=models.BooleanField(default=False)
     a2=models.BooleanField(default=False)
     a3=models.BooleanField(default=False)
     a4=models.BooleanField(default=False)
     a5=models.BooleanField(default=False)
-
-
     created = models.DateTimeField(auto_now_add=True)
 
 
@@ -269,14 +253,14 @@ category_choices= (
     
 )
 class Product(models.Model):
-
+    slug = models.SlugField()
     title = models.CharField(max_length=100)
     price = models.FloatField()
     category = models.CharField(max_length = 8,choices=category_choices)
     image = models.FileField(upload_to = "static/e-commerce/images/")
     description =models.TextField(blank=True, null=True,)
     shortdesc =models.CharField( blank=True, null=True,max_length=255)
-    slug = models.SlugField()
+   
   
     def __str__(self):
         return self.title
@@ -293,6 +277,10 @@ class Product(models.Model):
        return reverse('remove_cart', kwargs={
            'slug':self.slug
        })
+# OrderItem model was taken from
+# GitHub. 2019. django-ecommerce/models.py at master · justdjango/django-ecommerce. [online] 
+# Available at: <https://github.com/justdjango/django-ecommerce/blob/master/core/models.py>
+# [Accessed 25 March 2022].
 
 class OrderItem(models.Model):
 
@@ -309,12 +297,15 @@ class OrderItem(models.Model):
         total = self.product.price * self.quantity
         return total
 
+
+# few attributes of Order model was taken from
+# GitHub. 2019. django-ecommerce/models.py at master · justdjango/django-ecommerce. [online] 
+# Available at: <https://github.com/justdjango/django-ecommerce/blob/master/core/models.py>
+# [Accessed 25 March 2022].
 class Order(models.Model):
     slug = models.AutoField(primary_key=True)
-   
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-
     products = models.ManyToManyField(OrderItem)
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
@@ -344,7 +335,11 @@ class Order(models.Model):
 
     class Meta:
         ordering = ["slug"]
-  
+
+# Address model was adapted from
+# GitHub. 2019. django-ecommerce/models.py at master · justdjango/django-ecommerce. [online] 
+# Available at: <https://github.com/justdjango/django-ecommerce/blob/master/core/models.py>
+# [Accessed 25 March 2022].
 class Address(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
@@ -358,7 +353,8 @@ class Address(models.Model):
         return self.user.username
 
     class Meta:
-        verbose_name_plural = 'Addresses'
+      verbose_name_plural = 'Addresses'
+
 
 class Payment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -368,46 +364,11 @@ class Payment(models.Model):
 
 
 
-
-
-
-
-
-# class Feedback(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     student_id = models.ForeignKey(Students, on_delete=models.CASCADE)
-#     feedback = models.TextField()
-#     feedback_reply = models.TextField()
-#     created = models.DateTimeField(auto_now_add=True)
-#     updated = models.DateTimeField(auto_now_add=True)
-#     objects = models.Manager()
-
-
-
-# class NotificationStudent(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     student_id = models.ForeignKey(Students, on_delete=models.CASCADE)
-#     message = models.TextField()
-#     created = models.DateTimeField(auto_now_add=True)
-#     updated = models.DateTimeField(auto_now_add=True)
-#     objects = models.Manager()
-
-
-
-# class Management(models.Model):
-#     id=models.AutoField(primary_key=True)
-#     # admin = models.OneToOneField(CustomUser,on_delete=models.CASCADE)
-#     first_name = models.CharField(max_length=255)
-#     last_name = models.CharField(max_length=255)
-#     phone = models.CharField('Phone Number',max_length=15)
-#     created = models.DateTimeField(auto_now_add=True)
-#     updated = models.DateTimeField(auto_now_add=True)
-    
-#     # def get_absolute_url(self):
-#     #     return '/madrasa/teachers/list'
-#     # def __str__(self):
-#     #     return self.first_name + ' ' + self.last_name
-
+# Code taken from a Youtube tutorial
+# Ivy, D., 2022. GitHub - divanov11/mychat:
+# A video group video calling application using a Django backend with the Agora Web SDK. [online] GitHub. 
+# Available at: <https://github.com/divanov11/mychat> [Accessed 21 March 2022].
+# https://www.youtube.com/watch?v=Oxnz8Us1QAQ
 
 
 class RoomMember(models.Model):
