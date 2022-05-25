@@ -32,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-h$sisbvm98^!8h@!uon=d&shi"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['madrasaproject.herokuapp.com', 'www.madrasaproject.herokuapp.com', '127.0.0.1', 'localhost']
 
 MEDIA_URL= "/media/"
