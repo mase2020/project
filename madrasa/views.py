@@ -316,6 +316,7 @@ class ApplicationList(LoginRequiredMixin,PermissionRequiredMixin, ListView):
 
 
 #This function will save the new applicant into the students tables.
+#Remove double quotes on DOB for MySQL
 def save_student(req, pk):
     
     cursor = connection.cursor()
