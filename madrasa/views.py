@@ -981,18 +981,6 @@ def update_attendance_data(req):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 ''' Homework Views '''
 
 # Student views to check their homework
@@ -1210,7 +1198,6 @@ def get_fees_remaining(req):
     inner join madrasa_students on madrasa_fees.student_id_id = madrasa_students.id
     inner join madrasa_classes on madrasa_students.which_class_id = madrasa_classes.id
     where  madrasa_fees.year = %s
-
     group by madrasa_students.first_name , madrasa_students.last_name
     Having sum(madrasa_fees.amount) < %s
     ''',[ date, amount])

@@ -13,17 +13,21 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 
-from os import environ 
-# env = environ.Env(
-#     DEBUG =(bool, False)
-# )
+import environ 
+env = environ.Env(
+    DEBUG =(bool, False)
+)
+# Set the project base directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR = Path(__file__).resolve().parent.parent
+# # environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -32,7 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-h$sisbvm98^!8h@!uon=d&shi"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['uniproject2022.herokuapp.com', 'www.uniproject2022.herokuapp.com', '127.0.0.1', 'localhost']
 
 MEDIA_URL= "/media/"
@@ -95,14 +99,24 @@ WSGI_APPLICATION = 'tuition_project.wsgi.application'
 
 DATABASES = {
     'default': {
-
+#comment for local server
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd1e6s5dnbd6ga8',
-        'USER': "zksnmkeywlowsr",
-        'PASSWORD': "04724a7a7a76e41964c9d12891f369705ffd0dfe832a60051ab5596ed4c8d82c",
-        'HOST': 'ec2-52-48-159-67.eu-west-1.compute.amazonaws.com',
+        'NAME': os.environ.get("NAME"),
+        'USER': os.environ.get("USER"),
+        'PASSWORD': os.environ.get("PASSWORD"),
+        'HOST': os.environ.get("HOST"),
         'PORT': '5432',
 
+#Uncomment for local server
+#  'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': env('NAME'),
+#         'USER': "uxopvtakowkuqu",
+#         'PASSWORD': env("PASSWORD"),
+#         'HOST': env("HOST"),
+#         'PORT': '5432',
+
+
+#MySQL
         # 'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'tuition_centre_management_system',
         # 'USER': 'tuition_centre_management_system',
@@ -172,7 +186,7 @@ LOGIN_URL = '/'
 # AUTH_USER_MODEL = "madrasa.CustomUser"
 
 
-
+# TODO: change according to smtp host.
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.ionos.co.uk'
 EMAIL_PORT = 587
