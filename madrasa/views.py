@@ -326,7 +326,7 @@ def save_student(req, pk):
     last_name, email,
     photography,
     phone,address,
-    postcode,"DOB")
+    postcode,DOB)
     SELECT   first_name, last_name,
     email, photography, 
     phone, address,
@@ -1327,8 +1327,10 @@ import os
 def getToken(request):
 
     # TODO: replace appId and appCertificate with own credentials
-    appId = os.environ.get("APP_ID")
-    appCertificate = os.environ.get("APP_CERT")
+    # appId = os.environ.get("APP_ID")
+    # appCertificate = os.environ.get("APP_CERT")
+    appId = settings.appId
+    appCertificate = settings.appCert
     channelName = request.GET.get('channel')
     uid = random.randint(1, 230)
     expirationTimeInSeconds = 3600

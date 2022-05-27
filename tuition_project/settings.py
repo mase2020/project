@@ -13,21 +13,19 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 
-import environ 
-env = environ.Env(
-    DEBUG =(bool, False)
-)
+# import environ 
+# env = environ.Env(
+#     DEBUG =(bool, False)
+# )
 # Set the project base directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Take environment variables from .env file
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# # Take environment variables from .env file
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 
-# # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
-# # environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -100,14 +98,14 @@ WSGI_APPLICATION = 'tuition_project.wsgi.application'
 DATABASES = {
     'default': {
 #comment for local server
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("NAME"),
-        'USER': os.environ.get("USER"),
-        'PASSWORD': os.environ.get("PASSWORD"),
-        'HOST': os.environ.get("HOST"),
-        'PORT': '5432',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': os.environ.get("NAME"),
+        # 'USER': os.environ.get("USER"),
+        # 'PASSWORD': os.environ.get("PASSWORD"),
+        # 'HOST': os.environ.get("HOST"),
+        # 'PORT': '5432',
 
-#Uncomment for local server
+# Uncomment for local server
 #  'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': env('NAME'),
 #         'USER': "uxopvtakowkuqu",
@@ -117,12 +115,12 @@ DATABASES = {
 
 
 #MySQL
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'tuition_centre_management_system',
-        # 'USER': 'tuition_centre_management_system',
-        # 'PASSWORD': 'tuition_centre_management_password',
-        # 'HOST': 'localhost',
-        # 'PORT': '3306',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tuition_centre_management_system',
+        'USER': 'tuition_centre_management_system',
+        'PASSWORD': 'tuition_centre_management_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -188,10 +186,15 @@ LOGIN_URL = '/'
 
 # TODO: change according to smtp host.
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.ionos.co.uk'
+EMAIL_HOST = 'smtp-mail.outlook.com'
 EMAIL_PORT = 587
 # TODO: fill with own email credentials
-EMAIL_HOST_USER =os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD =os.environ.get("EMAIL_HOST_PASSWORD")
+# EMAIL_HOST_USER =os.environ.get("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD =os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER ="uniproject2022@hotmail.com"
+EMAIL_HOST_PASSWORD ="uniproject2022"
 EMAIL_USE_TLS = True
 
+
+appCert="2c4101e81d3b4b65b7852b3885da6fa0"
+appId="26ee4543d18c4a0086d36c498bb4f3c3"
