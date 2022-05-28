@@ -330,7 +330,7 @@ def save_student(req, pk):
     SELECT   first_name, last_name,
     email, photography, 
     phone, address,
-    postcode, "DOB"
+    postcode, DOB
     FROM  madrasa_registration
     where id = %s
         ''',[pk])

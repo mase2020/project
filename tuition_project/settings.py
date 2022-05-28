@@ -14,7 +14,12 @@ from pathlib import Path
 import os
 
 
+# Set the project base directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# # Take environment variables from .env file
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 
 
 
@@ -42,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -184,9 +188,7 @@ EMAIL_PORT = 587
 # EMAIL_HOST_USER =os.environ.get("EMAIL_HOST_USER")
 # EMAIL_HOST_PASSWORD =os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_HOST_USER ="uniproject2022@hotmail.com"
-EMAIL_HOST_PASSWORD ="uniproject2022"
+EMAIL_HOST_PASSWORD ="uniproject2020"
 EMAIL_USE_TLS = True
-
-
 appCert="2c4101e81d3b4b65b7852b3885da6fa0"
 appId="26ee4543d18c4a0086d36c498bb4f3c3"
